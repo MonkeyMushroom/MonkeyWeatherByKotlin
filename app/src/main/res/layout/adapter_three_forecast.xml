@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/base_margin">
+
+    <TextView
+        android:id="@+id/date_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_centerVertical="true"
+        android:text="今天" />
+
+    <TextView
+        android:id="@+id/weather_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/c100"
+        android:drawablePadding="@dimen/too_small_margin"
+        android:gravity="center_vertical"
+        android:text="多云转晴 | 优" />
+
+    <TextView
+        android:id="@+id/temp_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="-9/2℃" />
+</RelativeLayout>

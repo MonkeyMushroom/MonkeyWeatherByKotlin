@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/base_white</item>
+    </style>
+
+    <style name="BaseTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/base_text_color</item>
+        <item name="android:textSize">@dimen/base_text_size</item>
+    </style>
+
+    <style name="BaseWhiteTextStyle" parent="BaseTextStyle">
+        <item name="android:textColor">@color/base_white</item>
+    </style>
+
+    <style name="BaseBlackTextStyle" parent="BaseTextStyle">
+        <item name="android:textColor">@color/base_text_color</item>
+    </style>
+
+    <style name="BaseLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:height">@dimen/base_line_height</item>
+        <item name="android:background">@color/base_line_color</item>
+    </style>
+
+    <style name="RelativeStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="VerticalLineStyle">
+        <item name="android:layout_width">@dimen/base_line_height</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@color/base_white</item>
+    </style>
+</resources>
