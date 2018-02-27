@@ -1,7 +1,7 @@
 package com.monkey.monkeyweather.bean
 
 /**
- * 实况天气
+ * 3-10天天气预报
  */
 data class ForecastBean(var basic: BasicBean,
                         var status: String,

@@ -3,7 +3,7 @@ package com.monkey.monkeyweather.util
 import com.monkey.monkeyweather.R
 
 /**
- * Created by Administrator on 2018/2/5.
+ * 配置类
  */
 object Constant {
     const val BASE_URL = "https://free-api.heweather.com/"
