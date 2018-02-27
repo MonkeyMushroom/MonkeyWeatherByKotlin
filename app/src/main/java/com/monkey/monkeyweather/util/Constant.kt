@@ -9,7 +9,7 @@ object Constant {
     const val BASE_URL = "https://free-api.heweather.com/"
     const val KEY = "42875c8c480a45f1ac9d457c5afae338"
 
-    const val WEATHER_NOW = "s6/weather/now"
+    const val WEATHER = "s6/weather"
     const val WEATHER_FORECAST = "s6/weather/forecast"
     const val AIR_NOW = "s6/air/now"
 

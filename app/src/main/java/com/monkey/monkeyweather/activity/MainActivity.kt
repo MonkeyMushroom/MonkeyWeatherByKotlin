@@ -12,7 +12,7 @@ import com.monkey.monkeyweather.api.Api
 import com.monkey.monkeyweather.bean.BaseBean
 import com.monkey.monkeyweather.bean.ForecastBean
 import com.monkey.monkeyweather.bean.NowAirBean
-import com.monkey.monkeyweather.bean.NowWeatherBean
+import com.monkey.monkeyweather.bean.WeatherBean
 import com.monkey.monkeyweather.util.ToastUtil
 import com.monkey.monkeyweather.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,19 +25,20 @@ class MainActivity : AppCompatActivity() {
         StatusBarUtil.setTranslucentForImageView(this, 0, null)
         refresh_layout.setPtrHandler(OnPullDownToRefreshListener())
         location_tv.text = "朝阳区 胜古中路"
-        Api.getNowWeather(this, OnNowWeatherRequestListener())
+        Api.getWeather(this, OnWeatherRequestListener())
         Api.getNowAir(this, OnNowAirRequestListener())
-        Api.getWeatherForecast(this, OnWeatherForecastRequestListener())
+//        Api.getWeatherForecast(this, OnWeatherForecastRequestListener())
         forecast_rv.isNestedScrollingEnabled = false
         forecast_rv.layoutManager = LinearLayoutManager(this)
         forecast_rv.addItemDecoration(DividerItemDecoration(this))
     }
 
     /**
-     * 实况天气
+     * 常规天气集合
+     * 3-7天天气预报、实况天气、逐小时预报以及生活指数
      */
-    inner class OnNowWeatherRequestListener : Api.OnNetworkRequestListenerAdapter<BaseBean<List<NowWeatherBean>>>() {
-        override fun onSuccess(result: BaseBean<List<NowWeatherBean>>) {
+    inner class OnWeatherRequestListener : Api.OnNetworkRequestListenerAdapter<BaseBean<List<WeatherBean>>>() {
+        override fun onSuccess(result: BaseBean<List<WeatherBean>>) {
             super.onSuccess(result)
             val weather = result.HeWeather6[0]
             if ("ok" == weather.status) {
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
                 wind_sc_tv.text = now.wind_sc + "级"
                 hum_data_tv.text = now.hum + "%"
                 fl_data_tv.text = now.fl + "℃"
+
+                forecast_rv.adapter = ThreeForecastAdapter(weather.daily_forecast)
             } else {
                 ToastUtil.show(this@MainActivity, weather.status)
             }
@@ -106,9 +109,9 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class OnPullDownToRefreshListener : PtrDefaultHandler() {
         override fun onRefreshBegin(frame: PtrFrameLayout) {
-            Api.getNowWeather(this@MainActivity, OnNowWeatherRequestListener())
+            Api.getWeather(this@MainActivity, OnWeatherRequestListener())
             Api.getNowAir(this@MainActivity, OnNowAirRequestListener())
-            Api.getWeatherForecast(this@MainActivity, OnWeatherForecastRequestListener())
+//            Api.getWeatherForecast(this@MainActivity, OnWeatherForecastRequestListener())
         }
     }
 }
