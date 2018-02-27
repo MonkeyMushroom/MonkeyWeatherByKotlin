@@ -26,8 +26,13 @@
 
     <style name="BaseLineStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:height">@dimen/base_line_height</item>
+        <item name="android:layout_height">@dimen/base_line_height</item>
         <item name="android:background">@color/base_line_color</item>
+    </style>
+
+    <style name="BaseLineMarginStyle" parent="BaseLineStyle">
+        <item name="android:layout_marginLeft">@dimen/small_margin</item>
+        <item name="android:layout_marginRight">@dimen/small_margin</item>
     </style>
 
     <style name="RelativeStyle">

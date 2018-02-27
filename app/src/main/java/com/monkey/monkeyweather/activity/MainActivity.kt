@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
+import com.monkey.monkeyweather.adapter.LifeStyleAdapter
 import com.monkey.monkeyweather.adapter.ThreeForecastAdapter
 import com.monkey.monkeyweather.api.Api
 import com.monkey.monkeyweather.bean.BaseBean
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         forecast_rv.isNestedScrollingEnabled = false
         forecast_rv.layoutManager = LinearLayoutManager(this)
         forecast_rv.addItemDecoration(DividerItemDecoration(this))
+        lifestyle_rv.isNestedScrollingEnabled = false
+        lifestyle_rv.layoutManager = LinearLayoutManager(this)
+        lifestyle_rv.addItemDecoration(DividerItemDecoration(this))
     }
 
     /**
@@ -51,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 fl_data_tv.text = now.fl + "℃"
 
                 forecast_rv.adapter = ThreeForecastAdapter(weather.daily_forecast)
+                lifestyle_rv.adapter = LifeStyleAdapter(weather.lifestyle)
             } else {
                 ToastUtil.show(this@MainActivity, weather.status)
             }
