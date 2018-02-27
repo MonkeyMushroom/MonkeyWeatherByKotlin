@@ -6,9 +6,9 @@
 
     <color name="base_white">#FFFFFF</color>
     <color name="base_black">#000000</color>
-    <color name="base_blue">#3C5F81</color>
-    <color name="light_blue">#60c1e2</color>
+    <color name="base_blue">#3ED1F9</color>
     <color name="base_gray">#EFEFEF</color>
+    <color name="base_yellow">#FBD000</color>
     <color name="base_text_color">#535353</color>
     <color name="base_line_color">#d6d6d6</color>
 </resources>

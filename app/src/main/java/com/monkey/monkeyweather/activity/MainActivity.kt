@@ -3,6 +3,7 @@ package com.monkey.monkeyweather.activity
 import `in`.srain.cube.views.ptr.PtrDefaultHandler
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -15,11 +16,13 @@ import com.monkey.monkeyweather.bean.BaseBean
 import com.monkey.monkeyweather.bean.ForecastBean
 import com.monkey.monkeyweather.bean.NowAirBean
 import com.monkey.monkeyweather.bean.WeatherBean
+import com.monkey.monkeyweather.util.ScreenUtil
 import com.monkey.monkeyweather.util.ToastUtil
 import com.monkey.monkeyweather.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), NestedScrollView.OnScrollChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,24 @@ class MainActivity : AppCompatActivity() {
         lifestyle_rv.isNestedScrollingEnabled = false
         lifestyle_rv.layoutManager = LinearLayoutManager(this)
         lifestyle_rv.addItemDecoration(DividerItemDecoration(this))
+
+        title_ll.alpha = 0f
+        status_view.layoutParams.height = ScreenUtil.getStatusBarHeight(this)
+        scroller.setOnScrollChangeListener(this)
+    }
+
+    /**
+     * 标题栏渐变
+     */
+    override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
+        when {
+            scrollY < wind_ll.top -> title_ll.alpha = 0f//透明
+            scrollY in wind_ll.top..forecast_rv.top -> {//渐变
+                val percent = (scrollY - wind_ll.top) * 100 / (forecast_rv.top - wind_ll.top)
+                title_ll.alpha = percent.toFloat() / 100
+            }
+            else -> title_ll.alpha = 1f//不透明
+        }
     }
 
     /**
@@ -48,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             val weather = result.HeWeather6[0]
             if ("ok" == weather.status) {
                 val now = weather.now
+                title_tv.text = "朝阳区 胜古中路 ${now.tmp}℃"
                 temp_tv.text = now.tmp
                 weather_tv.text = now.cond_txt
                 wind_dir_tv.text = now.wind_dir
@@ -80,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             val air = result.HeWeather6[0]
             if ("ok" == air.status) {
                 val nowCity = air.air_now_city
-                air_qlty_tv.text = "空气" + nowCity.qlty
+                air_qlty_tv.text = nowCity.qlty
                 aqi_tv.text = nowCity.aqi + " >"
             } else {
                 ToastUtil.show(this@MainActivity, air.status)
