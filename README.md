@@ -3,4 +3,4 @@
 
 天气API来自和风天气
 
-![image](https://github.com/MonkeyMushroom/MonkeyWeatherByKotlin/raw/master/1.png)
+![image](https://github.com/MonkeyMushroom/MonkeyWeatherByKotlin/raw/master/2.png)
