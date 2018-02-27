@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/aqi_tv"
                         android:layout_marginBottom="@dimen/base_margin"
-                        android:layout_marginTop="150dp"
+                        android:layout_marginTop="152dp"
                         android:orientation="horizontal">
 
                         <RelativeLayout style="@style/RelativeStyle">
@@ -150,11 +150,30 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/top_detail_rl" />
 
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_margin"
+                    android:layout_below="@+id/forecast_rv"
+                    android:background="@color/base_gray" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/lifestyle_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/forecast_rv" />
+                    android:layout_below="@+id/line1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lifestyle_rv"
+                    android:background="@color/base_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/base_margin"
+                    android:paddingTop="@dimen/base_margin"
+                    android:text="@string/data_support"
+                    android:textColor="@color/base_text_color"
+                    android:textSize="@dimen/too_small_text_size" />
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
@@ -162,7 +181,7 @@
     <RelativeLayout
         android:id="@+id/bottom_rl"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:background="@color/base_white">
 

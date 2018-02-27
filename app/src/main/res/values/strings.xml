@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">猴菇天气</string>
+    <string name="life_style">生活指数</string>
+    <string name="data_support">数据来源：和风天气</string>
 
     <string name="no_internet">没有网络</string>
     <string name="no_SDCard">SD卡没有插好</string>
@@ -10,5 +12,4 @@
     <string name="load_fail">加载失败，请重试</string>
     <string name="click_to_load_more">点击加载更多</string>
     <string name="unknown_exception">未知异常</string>
-    <string name="please_login_first">请先登录</string>
 </resources>

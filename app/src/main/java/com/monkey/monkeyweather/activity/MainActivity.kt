@@ -5,6 +5,7 @@ import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.adapter.LifeStyleAdapter
@@ -55,7 +56,10 @@ class MainActivity : AppCompatActivity() {
                 fl_data_tv.text = now.fl + "℃"
 
                 forecast_rv.adapter = ThreeForecastAdapter(weather.daily_forecast)
-                lifestyle_rv.adapter = LifeStyleAdapter(weather.lifestyle)
+                val lifeStyleAdapter = LifeStyleAdapter(weather.lifestyle)
+                val lifeStyleHeader = View.inflate(this@MainActivity, R.layout.header_life_style, null)
+                lifeStyleAdapter.setHeaderView(lifeStyleHeader)
+                lifestyle_rv.adapter = lifeStyleAdapter
             } else {
                 ToastUtil.show(this@MainActivity, weather.status)
             }
