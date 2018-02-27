@@ -27,7 +27,7 @@ class LifeStyleAdapter(data: List<WeatherBean.LifestyleBean>) :
                     .setText(R.id.state_tv, "旅游：" + item.brf)
             "uv" -> helper.setBackgroundRes(R.id.type_iv, R.drawable.uv)
                     .setText(R.id.state_tv, "紫外线：" + item.brf)
-            "air" -> helper.setBackgroundRes(R.id.type_iv, R.drawable.comf)
+            "air" -> helper.setBackgroundRes(R.id.type_iv, R.drawable.air)
                     .setText(R.id.state_tv, "空气污染扩散：" + item.brf)
         }
         helper.setText(R.id.suggest_tv, item.txt)
