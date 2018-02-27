@@ -17,7 +17,6 @@ import com.monkey.monkeyweather.util.ToastUtil
 import com.monkey.monkeyweather.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         StatusBarUtil.setTranslucentForImageView(this, 0, null)
         refresh_layout.setPtrHandler(OnPullDownToRefreshListener())
         location_tv.text = "朝阳区 胜古中路"
-        Api.getNowWeather(this, listener = OnNowWeatherRequestListener())
-        Api.getNowAir(this, listener = OnNowAirRequestListener())
-        Api.getWeatherForecast(this, listener = OnWeatherForecastRequestListener())
+        Api.getNowWeather(this, OnNowWeatherRequestListener())
+        Api.getNowAir(this, OnNowAirRequestListener())
+        Api.getWeatherForecast(this, OnWeatherForecastRequestListener())
         forecast_rv.isNestedScrollingEnabled = false
         forecast_rv.layoutManager = LinearLayoutManager(this)
         forecast_rv.addItemDecoration(DividerItemDecoration(this))
@@ -107,9 +106,9 @@ class MainActivity : AppCompatActivity() {
      */
     private inner class OnPullDownToRefreshListener : PtrDefaultHandler() {
         override fun onRefreshBegin(frame: PtrFrameLayout) {
-            Api.getNowWeather(this@MainActivity, listener = OnNowWeatherRequestListener())
-            Api.getNowAir(this@MainActivity, listener = OnNowAirRequestListener())
-            Api.getWeatherForecast(this@MainActivity, listener = OnWeatherForecastRequestListener())
+            Api.getNowWeather(this@MainActivity, OnNowWeatherRequestListener())
+            Api.getNowAir(this@MainActivity, OnNowAirRequestListener())
+            Api.getWeatherForecast(this@MainActivity, OnWeatherForecastRequestListener())
         }
     }
 }
