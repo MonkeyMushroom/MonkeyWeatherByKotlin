@@ -7,6 +7,7 @@ import com.monkey.monkeyweather.R
  */
 object Constant {
     const val BASE_URL = "https://free-api.heweather.com/"
+    const val USERNAME = "HE1802011039311694"
     const val KEY = "42875c8c480a45f1ac9d457c5afae338"
 
     const val WEATHER = "s6/weather"

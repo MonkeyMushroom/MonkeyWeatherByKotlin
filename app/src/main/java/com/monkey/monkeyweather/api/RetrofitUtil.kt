@@ -6,6 +6,7 @@ import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.util.Constant
 import com.monkey.monkeyweather.util.LogUtil
 import com.monkey.monkeyweather.util.ToastUtil
+import com.monkey.monkeyweather.util.WeatherSignUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -70,4 +71,21 @@ open class RetrofitUtil {
     }
 
     private class NoDataException : Throwable()
+
+    fun getBaseParams(location: String): HashMap<String, String> {
+        val username = Constant.USERNAME
+        val t = System.currentTimeMillis()
+        val signMap = HashMap<String, String>()
+        signMap["location"] = location
+        signMap["username"] = username
+        signMap["t"] = t.toString()
+        val sign = WeatherSignUtil.getSignature(signMap, Constant.KEY)
+        val paramsMap = HashMap<String, String>()
+        paramsMap["username"] = username
+        paramsMap["t"] = t.toString()
+        paramsMap["sign"] = sign
+        return paramsMap
+    }
+
+
 }

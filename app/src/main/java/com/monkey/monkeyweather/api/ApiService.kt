@@ -8,6 +8,7 @@ import com.monkey.monkeyweather.util.Constant
 import io.reactivex.Observable
 import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 
 /**
@@ -16,15 +17,15 @@ import retrofit2.http.Query
 interface ApiService {
 
     @POST(Constant.AIR_NOW)
-    fun getNowAir(@Query("location") location: String, @Query("key") key: String)
+    fun getNowAir(@Query("location") location: String, @QueryMap params: HashMap<String, String>)
             : Observable<BaseBean<List<NowAirBean>>>
 
     @POST(Constant.WEATHER_FORECAST)
-    fun getWeatherForecast(@Query("location") location: String, @Query("key") key: String)
+    fun getWeatherForecast(@Query("location") location: String, @QueryMap params: HashMap<String, String>)
             : Observable<BaseBean<List<ForecastBean>>>
 
     @POST(Constant.WEATHER)
-    fun getWeather(@Query("location") location: String, @Query("key") key: String)
+    fun getWeather(@Query("location") location: String, @QueryMap params: HashMap<String, String>)
             : Observable<BaseBean<List<WeatherBean>>>
 
 }
