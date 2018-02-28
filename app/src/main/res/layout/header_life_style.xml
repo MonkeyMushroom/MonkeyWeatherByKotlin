@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv"
         android:layout_alignTop="@+id/tv"
-        android:layout_marginLeft="@dimen/small_margin"
         android:background="@color/colorAccent" />
 
     <TextView

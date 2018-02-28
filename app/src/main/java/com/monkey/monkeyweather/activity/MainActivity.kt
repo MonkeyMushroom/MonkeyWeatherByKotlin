@@ -22,7 +22,7 @@ import com.monkey.monkeyweather.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), NestedScrollView.OnScrollChangeListener {
+class MainActivity : AppCompatActivity(), NestedScrollView.OnScrollChangeListener, View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity(), NestedScrollView.OnScrollChangeListene
         title_ll.alpha = 0f
         status_view.layoutParams.height = ScreenUtil.getStatusBarHeight(this)
         scroller.setOnScrollChangeListener(this)
+        add_iv.setOnClickListener(this)
+        more_iv.setOnClickListener(this)
     }
 
     /**
@@ -143,6 +145,13 @@ class MainActivity : AppCompatActivity(), NestedScrollView.OnScrollChangeListene
             Api.getWeather(this@MainActivity, OnWeatherRequestListener())
             Api.getNowAir(this@MainActivity, OnNowAirRequestListener())
 //            Api.getWeatherForecast(this@MainActivity, OnWeatherForecastRequestListener())
+        }
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.add_iv -> ToastUtil.show(this, "add")
+            R.id.more_iv -> ToastUtil.show(this, "more")
         }
     }
 }

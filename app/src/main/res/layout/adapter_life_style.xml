@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/small_margin">
+    android:paddingBottom="@dimen/base_margin"
+    android:paddingTop="@dimen/base_margin">
 
     <ImageView
         android:id="@+id/type_iv"
@@ -14,8 +15,7 @@
     <TextView
         android:id="@+id/state_tv"
         style="@style/BaseBlackTextStyle"
-        android:layout_alignTop="@+id/type_iv"
-        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/too_small_margin"
         android:layout_toRightOf="@+id/type_iv"
         android:text="良好"
         android:textSize="@dimen/large_text_size" />

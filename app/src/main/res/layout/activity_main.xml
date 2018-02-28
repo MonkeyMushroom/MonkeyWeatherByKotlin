@@ -16,18 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/top_detail_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorPrimaryDark"
                     android:paddingTop="@dimen/base_margin">
 
                     <TextView
@@ -153,25 +151,24 @@
                     android:id="@+id/forecast_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/top_detail_rl" />
+                    android:paddingLeft="@dimen/medium_margin"
+                    android:paddingRight="@dimen/medium_margin" />
 
                 <View
-                    android:id="@+id/line1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/base_margin"
-                    android:layout_below="@+id/forecast_rv"
                     android:background="@color/base_gray" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/lifestyle_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/line1" />
+                    android:paddingLeft="@dimen/base_margin"
+                    android:paddingRight="@dimen/base_margin" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/lifestyle_rv"
                     android:background="@color/base_gray"
                     android:gravity="center"
                     android:paddingBottom="@dimen/base_margin"
@@ -179,7 +176,7 @@
                     android:text="@string/data_support"
                     android:textColor="@color/base_text_color"
                     android:textSize="@dimen/too_small_text_size" />
-            </RelativeLayout>
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
@@ -209,7 +206,28 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_title_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/base_white">
+        android:background="@color/base_white"
+        android:gravity="center_vertical">
 
+        <View style="@style/BaseLineStyle" />
+
+        <ImageView
+            android:id="@+id/add_iv"
+            android:layout_width="@dimen/base_title_height"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:src="@drawable/add" />
+
+        <ImageView
+            android:id="@+id/more_iv"
+            android:layout_width="@dimen/base_title_height"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/small_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            android:src="@drawable/more" />
     </RelativeLayout>
 </RelativeLayout>

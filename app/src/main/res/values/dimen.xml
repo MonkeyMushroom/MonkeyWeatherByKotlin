@@ -3,6 +3,7 @@
     <dimen name="too_small_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="base_margin">16dp</dimen>
+    <dimen name="medium_margin">24dp</dimen>
     <dimen name="large_margin">32dp</dimen>
 
     <dimen name="base_title_height">42dp</dimen>
