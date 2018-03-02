@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_title_height"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingRight="@dimen/small_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/search_city_bg">
+
+            <ImageView
+                android:id="@+id/back_iv"
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/back" />
+
+            <EditText
+                android:id="@+id/input_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/clear_iv"
+                android:layout_toRightOf="@+id/back_iv"
+                android:background="@null"
+                android:hint="@string/search_city"
+                android:textColor="@color/base_text_color"
+                android:textColorHint="@color/light_text_color"
+                android:textSize="@dimen/base_text_size" />
+
+            <ImageView
+                android:id="@+id/clear_iv"
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="center"
+                android:src="@drawable/clear" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

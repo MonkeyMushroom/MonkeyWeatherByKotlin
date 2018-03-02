@@ -38,7 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SplashActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddCityActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

@@ -3,6 +3,7 @@ package com.monkey.monkeyweather.activity
 import `in`.srain.cube.views.ptr.PtrDefaultHandler
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
@@ -96,8 +97,8 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
             title_tv.text = "$district $street"
             location_tv.text = "$district $street"
             Api.getWeather(this@MainActivity, mLocation, OnWeatherRequestListener())
-            Api.getNowAir(this@MainActivity, mLocation, OnNowAirRequestListener())
-            Api.getWeatherForecast(this@MainActivity, mLocation, OnWeatherForecastRequestListener())
+            Api.getNowAir(this@MainActivity, city, OnNowAirRequestListener())
+//            Api.getWeatherForecast(this@MainActivity, mLocation, OnWeatherForecastRequestListener())
         }
     }
 
@@ -201,9 +202,14 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
     }
 
     override fun onClick(v: View) {
+        val intent = Intent()
         when (v.id) {
-            R.id.add_iv -> ToastUtil.show(this, "add")
-            R.id.more_iv -> ToastUtil.show(this, "more")
+            R.id.add_iv -> {
+                intent.setClass(this@MainActivity, AddCityActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.more_iv ->
+                ToastUtil.show(this, "more")
         }
     }
 }
