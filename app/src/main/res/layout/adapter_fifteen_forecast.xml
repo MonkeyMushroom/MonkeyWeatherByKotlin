@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="72dp"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/week_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_marginTop="@dimen/too_small_margin"
+        android:text="今天"
+        android:textSize="@dimen/small_text_size" />
+
+    <TextView
+        android:id="@+id/date_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_marginTop="@dimen/too_small_margin"
+        android:text="3月4日"
+        android:textColor="@color/light_text_color"
+        android:textSize="@dimen/too_small_text_size" />
+
+    <View
+        style="@style/BaseLineStyle"
+        android:layout_marginTop="@dimen/too_small_margin" />
+
+    <TextView
+        android:id="@+id/day_weather_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_marginTop="@dimen/base_margin"
+        android:drawablePadding="@dimen/too_small_margin"
+        android:drawableTop="@drawable/c100"
+        android:gravity="center_horizontal"
+        android:text="多云" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:id="@+id/night_weather_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_marginTop="@dimen/base_margin"
+        android:drawablePadding="@dimen/too_small_margin"
+        android:drawableTop="@drawable/c100"
+        android:gravity="center_horizontal"
+        android:text="多云" />
+
+    <TextView
+        android:id="@+id/wind_dir_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="北风"
+        android:textSize="@dimen/small_text_size" />
+
+    <TextView
+        android:id="@+id/wind_sc_tv"
+        style="@style/BaseBlackTextStyle"
+        android:text="2级"
+        android:textSize="@dimen/small_text_size" />
+
+</LinearLayout>

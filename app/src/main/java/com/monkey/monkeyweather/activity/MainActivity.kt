@@ -12,6 +12,8 @@ import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.adapter.LifeStyleAdapter
@@ -30,6 +32,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, View.OnClickListener {
 
+    companion object {
+        const val LOCATION = "LOCATION"
+    }
+
     private var mLocationClient: LocationClient? = null
     private val mLocationListener = LocationListener()
     private var mLocation: String = ""//位置（经纬度）
@@ -39,9 +45,10 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
         setContentView(R.layout.activity_main)
         StatusBarUtil.setTranslucentForImageView(this, 0, null)
         refresh_layout.setPtrHandler(OnPullDownToRefreshListener())
-        forecast_rv.isNestedScrollingEnabled = false
-        forecast_rv.layoutManager = LinearLayoutManager(this)
-        forecast_rv.addItemDecoration(DividerItemDecoration(this))
+        three_forecast_rv.isNestedScrollingEnabled = false
+        three_forecast_rv.layoutManager = LinearLayoutManager(this)
+        three_forecast_rv.addItemDecoration(DividerItemDecoration(this))
+        fifteen_forecast_tv.setOnClickListener(this)
         lifestyle_rv.isNestedScrollingEnabled = false
         lifestyle_rv.layoutManager = LinearLayoutManager(this)
         lifestyle_rv.addItemDecoration(DividerItemDecoration(this))
@@ -70,7 +77,7 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
             }
 
             override fun onRuntimePermissionDenied() {
-                ToastUtil.show(this@MainActivity, "拒绝权限无法为您获取当前位置的天气情况哦O(∩_∩)O")
+                ToastUtil.show(this@MainActivity, "拒绝权限无法精确获取当前位置的天气情况哦O(∩_∩)O")
             }
         })
     }
@@ -98,7 +105,6 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
             location_tv.text = "$district $street"
             Api.getWeather(this@MainActivity, mLocation, OnWeatherRequestListener())
             Api.getNowAir(this@MainActivity, city, OnNowAirRequestListener())
-//            Api.getWeatherForecast(this@MainActivity, mLocation, OnWeatherForecastRequestListener())
         }
     }
 
@@ -108,8 +114,8 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
     override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
         when {
             scrollY < wind_ll.top -> title_ll.alpha = 0f//透明
-            scrollY in wind_ll.top..forecast_rv.top -> {//渐变
-                val percent = (scrollY - wind_ll.top) * 100 / (forecast_rv.top - wind_ll.top)
+            scrollY in wind_ll.top..three_forecast_rv.top -> {//渐变
+                val percent = (scrollY - wind_ll.top) * 100 / (three_forecast_rv.top - wind_ll.top)
                 title_ll.alpha = percent.toFloat() / 100
             }
             else -> title_ll.alpha = 1f//不透明
@@ -134,7 +140,14 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
                 hum_data_tv.text = now.hum + "%"
                 fl_data_tv.text = now.fl + "℃"
 
-                forecast_rv.adapter = ThreeForecastAdapter(weather.daily_forecast)
+                val forecastAdapter = ThreeForecastAdapter(weather.daily_forecast)
+                forecastAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener(
+                        { adapter: BaseQuickAdapter<Any, BaseViewHolder>, view: View, i: Int ->
+                            val item = adapter.getItem(i) as ForecastBean.DailyForecastBean
+                            ToastUtil.show(this@MainActivity, item.date)
+                        })
+                three_forecast_rv.adapter = forecastAdapter
+
                 val lifeStyleAdapter = LifeStyleAdapter(weather.lifestyle)
                 val lifeStyleHeader = View.inflate(this@MainActivity, R.layout.header_life_style, null)
                 lifeStyleAdapter.setHeaderView(lifeStyleHeader)
@@ -173,26 +186,6 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
     }
 
     /**
-     * 3-10天天气预报
-     */
-    inner class OnWeatherForecastRequestListener : Api.OnNetworkRequestListenerAdapter<BaseBean<List<ForecastBean>>>() {
-        override fun onSuccess(result: BaseBean<List<ForecastBean>>) {
-            super.onSuccess(result)
-            val forecast = result.HeWeather6[0]
-            if ("ok" == forecast.status) {
-                forecast_rv.adapter = ThreeForecastAdapter(forecast.daily_forecast)
-            } else {
-                ToastUtil.show(this@MainActivity, forecast.status)
-            }
-        }
-
-        override fun onComplete() {
-            super.onComplete()
-            refresh_layout.refreshComplete()
-        }
-    }
-
-    /**
      * 下拉刷新
      */
     private inner class OnPullDownToRefreshListener : PtrDefaultHandler() {
@@ -202,12 +195,14 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
     }
 
     override fun onClick(v: View) {
-        val intent = Intent()
         when (v.id) {
-            R.id.add_iv -> {
-                intent.setClass(this@MainActivity, AddCityActivity::class.java)
+            R.id.fifteen_forecast_tv -> {
+                val intent = Intent(this@MainActivity, FifteenForecastActivity::class.java)
+                intent.putExtra(LOCATION, mLocation)
                 startActivity(intent)
             }
+            R.id.add_iv ->
+                startActivity(Intent(this@MainActivity, AddCityActivity::class.java))
             R.id.more_iv ->
                 ToastUtil.show(this, "more")
         }

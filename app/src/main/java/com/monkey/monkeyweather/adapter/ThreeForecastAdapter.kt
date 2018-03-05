@@ -25,6 +25,4 @@ class ThreeForecastAdapter(data: List<DailyForecastBean>) :
             else -> helper.setText(R.id.date_tv, CalendarUtil.getWeek(item.date))
         }
     }
-
-
 }

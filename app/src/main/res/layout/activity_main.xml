@@ -30,6 +30,7 @@
 
                     <TextView
                         android:id="@+id/location_tv"
+                        android:text="@string/in_the_location"
                         style="@style/BaseWhiteTextStyle"
                         android:layout_marginLeft="@dimen/base_margin"
                         android:layout_marginTop="@dimen/base_margin" />
@@ -140,11 +141,23 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/forecast_rv"
+                    android:id="@+id/three_forecast_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/medium_margin"
                     android:paddingRight="@dimen/medium_margin" />
+
+                <View style="@style/BaseLineStyle"/>
+
+                <TextView
+                    android:id="@+id/fifteen_forecast_tv"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/small_text_size"
+                    style="@style/BaseBlackTextStyle"
+                    android:gravity="center"
+                    android:background="@drawable/main_fifteen_forecast_selector"
+                    android:text="@string/fifteen_days_forecast"
+                    android:layout_height="@dimen/base_title_height" />
 
                 <View
                     android:layout_width="match_parent"

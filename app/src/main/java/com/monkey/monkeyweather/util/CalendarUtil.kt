@@ -35,4 +35,16 @@ object CalendarUtil {
             else -> ""
         }
     }
+
+    /**
+     * 将“yyyy-MM-dd”格式转换为“MM月dd日”格式
+     */
+    fun translate(dateStr: String): String {
+        val date = format.parse(dateStr)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        return "${month}月${day}日"
+    }
 }

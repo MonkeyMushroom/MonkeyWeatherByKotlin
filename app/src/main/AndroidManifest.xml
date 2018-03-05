@@ -54,6 +54,7 @@
             android:enabled="true"
             android:process=":remote" />
 
+        <activity android:name=".activity.FifteenForecastActivity"></activity>
     </application>
 
 </manifest>
