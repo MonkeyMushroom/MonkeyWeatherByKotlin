@@ -20,7 +20,6 @@ import com.monkey.monkeyweather.adapter.LifeStyleAdapter
 import com.monkey.monkeyweather.adapter.ThreeForecastAdapter
 import com.monkey.monkeyweather.api.Api
 import com.monkey.monkeyweather.bean.BaseBean
-import com.monkey.monkeyweather.bean.ForecastBean
 import com.monkey.monkeyweather.bean.NowAirBean
 import com.monkey.monkeyweather.bean.WeatherBean
 import com.monkey.monkeyweather.util.LogUtil
@@ -143,8 +142,10 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
                 val forecastAdapter = ThreeForecastAdapter(weather.daily_forecast)
                 forecastAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener(
                         { adapter: BaseQuickAdapter<Any, BaseViewHolder>, view: View, i: Int ->
-                            val item = adapter.getItem(i) as ForecastBean.DailyForecastBean
-                            ToastUtil.show(this@MainActivity, item.date)
+                            val intent = Intent(this@MainActivity, FifteenForecastActivity::class.java)
+                            intent.putExtra(LOCATION, mLocation)
+                            intent.putExtra(FifteenForecastActivity.SELECT_POSITION, i)
+                            startActivity(intent)
                         })
                 three_forecast_rv.adapter = forecastAdapter
 
@@ -199,6 +200,7 @@ class MainActivity : BaseActivity(), NestedScrollView.OnScrollChangeListener, Vi
             R.id.fifteen_forecast_tv -> {
                 val intent = Intent(this@MainActivity, FifteenForecastActivity::class.java)
                 intent.putExtra(LOCATION, mLocation)
+                intent.putExtra(FifteenForecastActivity.SELECT_POSITION, 0)
                 startActivity(intent)
             }
             R.id.add_iv ->

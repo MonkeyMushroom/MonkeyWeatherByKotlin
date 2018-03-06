@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="72dp"
+    android:id="@+id/root_ll"
+    android:layout_width="52dp"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -33,14 +34,16 @@
         android:gravity="center_horizontal"
         android:text="多云" />
 
-    <View
+    <com.monkey.monkeyweather.widget.FifteenForecastTemperatureChartView
+        android:id="@+id/temp_chart_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/base_margin"
+        android:paddingTop="@dimen/base_margin" />
 
     <TextView
         android:id="@+id/night_weather_tv"
         style="@style/BaseBlackTextStyle"
-        android:layout_marginTop="@dimen/base_margin"
         android:drawablePadding="@dimen/too_small_margin"
         android:drawableTop="@drawable/c100"
         android:gravity="center_horizontal"
@@ -59,4 +62,7 @@
         android:text="2级"
         android:textSize="@dimen/small_text_size" />
 
+    <View
+        style="@style/BaseLineStyle"
+        android:layout_marginTop="@dimen/small_margin" />
 </LinearLayout>

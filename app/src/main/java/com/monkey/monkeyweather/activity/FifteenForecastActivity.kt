@@ -18,6 +18,11 @@ import kotlinx.android.synthetic.main.activity_fifteen_forecast.*
 class FifteenForecastActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mLocation: String = ""
+    private var mSelectPos: Int = 0
+
+    companion object {
+        const val SELECT_POSITION = "SELECT_POSITION"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,7 @@ class FifteenForecastActivity : AppCompatActivity(), View.OnClickListener {
         fifteen_forecast_rv.layoutManager = LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false)
         mLocation = intent.getStringExtra(MainActivity.LOCATION)
+        mSelectPos = intent.getIntExtra(SELECT_POSITION,0)
         Api.getWeatherForecast(this, mLocation, OnWeatherForecastRequestListener())
     }
 
@@ -37,7 +43,8 @@ class FifteenForecastActivity : AppCompatActivity(), View.OnClickListener {
             super.onSuccess(result)
             val forecast = result.HeWeather6[0]
             if ("ok" == forecast.status) {
-                fifteen_forecast_rv.adapter = FifteenForecastAdapter(forecast.daily_forecast)
+                fifteen_forecast_rv.adapter = FifteenForecastAdapter(
+                        forecast.daily_forecast, this@FifteenForecastActivity, mSelectPos)
             } else {
                 ToastUtil.show(this@FifteenForecastActivity, forecast.status)
             }
