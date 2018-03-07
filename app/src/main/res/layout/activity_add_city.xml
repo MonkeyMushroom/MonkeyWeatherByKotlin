@@ -6,20 +6,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_title_height"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
+        android:paddingBottom="@dimen/too_small_margin"
         android:paddingLeft="@dimen/small_margin"
-        android:paddingRight="@dimen/small_margin">
+        android:paddingRight="@dimen/small_margin"
+        android:paddingTop="@dimen/too_small_margin">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:layout_centerVertical="true"
+            android:layout_height="36dp"
             android:background="@drawable/search_city_bg">
 
             <ImageView
                 android:id="@+id/back_iv"
-                android:layout_width="34dp"
+                android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:scaleType="center"
                 android:src="@drawable/back" />
@@ -40,7 +41,7 @@
 
             <ImageView
                 android:id="@+id/clear_iv"
-                android:layout_width="34dp"
+                android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:scaleType="center"

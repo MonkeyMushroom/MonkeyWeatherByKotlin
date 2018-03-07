@@ -14,9 +14,15 @@ object CalendarUtil {
         return format.format(Date())
     }
 
+    fun getYesterday(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DATE, -1)
+        return format.format(calendar.time)
+    }
+
     fun getTomorrow(): String {
         val calendar = Calendar.getInstance()
-        calendar.set(calendar[Calendar.YEAR], calendar[Calendar.MONTH], calendar[Calendar.DAY_OF_MONTH] + 1)
+        calendar.add(Calendar.DATE, 1)
         return format.format(calendar.time)
     }
 

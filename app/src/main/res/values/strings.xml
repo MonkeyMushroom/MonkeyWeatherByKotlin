@@ -15,4 +15,8 @@
     <string name="load_fail">加载失败，请重试</string>
     <string name="click_to_load_more">点击加载更多</string>
     <string name="unknown_exception">未知异常</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放刷新</string>
+    <string name="refreshing">正在刷新</string>
+    <string name="refresh_complete">更新完成</string>
 </resources>

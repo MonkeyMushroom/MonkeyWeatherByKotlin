@@ -55,6 +55,7 @@ class FifteenForecastAdapter(data: List<DailyForecastBean>, context: Context, se
         val nightWeatherTv = helper.getView<TextView>(R.id.night_weather_tv)
         nightWeatherTv.setCompoundDrawablesWithIntrinsicBounds(0, Constant.getWeatherIcon(item.cond_code_n), 0, 0)
         when (item.date) {
+            CalendarUtil.getYesterday() -> helper.setText(R.id.week_tv, "昨天")
             CalendarUtil.getToday() -> helper.setText(R.id.week_tv, "今天")
             CalendarUtil.getTomorrow() -> helper.setText(R.id.week_tv, "明天")
             else -> helper.setText(R.id.week_tv, CalendarUtil.getWeek(item.date))

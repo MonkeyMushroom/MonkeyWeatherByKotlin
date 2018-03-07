@@ -25,6 +25,7 @@ import com.monkey.monkeyweather.bean.WeatherBean
 import com.monkey.monkeyweather.util.ScreenUtil
 import com.monkey.monkeyweather.util.ToastUtil
 import com.monkey.monkeyweather.widget.DividerItemDecoration
+import com.monkey.monkeyweather.widget.PtrHeader
 import kotlinx.android.synthetic.main.fragment_city.*
 
 
@@ -58,6 +59,9 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         refresh_layout.setPtrHandler(OnPullDownToRefreshListener())
+        val ptrHeader = PtrHeader(activity)
+        refresh_layout.headerView = ptrHeader
+        refresh_layout.addPtrUIHandler(ptrHeader)
         three_forecast_rv.isNestedScrollingEnabled = false
         three_forecast_rv.layoutManager = LinearLayoutManager(activity)
         three_forecast_rv.addItemDecoration(DividerItemDecoration(activity))
