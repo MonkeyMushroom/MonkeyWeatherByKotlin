@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.monkey.monkeyweather.fragment.CityFragment">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroller"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/top_detail_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:paddingTop="@dimen/base_margin">
+
+                    <TextView
+                        android:id="@+id/address_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_marginLeft="@dimen/base_margin"
+                        android:layout_marginTop="@dimen/base_margin"
+                        android:text="@string/in_the_location" />
+
+                    <TextView
+                        android:id="@+id/temp_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@+id/address_tv"
+                        android:layout_marginLeft="@dimen/base_margin"
+                        android:textSize="52sp" />
+
+                    <TextView
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@+id/address_tv"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_toRightOf="@+id/temp_tv"
+                        android:text="℃"
+                        android:textSize="@dimen/large_text_size" />
+
+                    <TextView
+                        android:id="@+id/weather_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@+id/temp_tv"
+                        android:layout_marginLeft="@dimen/base_margin" />
+
+                    <TextView
+                        android:id="@+id/air_qlty_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@+id/temp_tv"
+                        android:layout_toRightOf="@+id/weather_tv" />
+
+                    <TextView
+                        android:id="@+id/aqi_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@+id/temp_tv"
+                        android:layout_toRightOf="@+id/air_qlty_tv" />
+
+                    <LinearLayout
+                        android:id="@+id/wind_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/aqi_tv"
+                        android:layout_marginTop="134dp"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/base_margin"
+                        android:paddingTop="@dimen/base_margin">
+
+                        <RelativeLayout style="@style/RelativeStyle">
+
+                            <TextView
+                                android:id="@+id/wind_dir_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_centerHorizontal="true"
+                                android:text="东南风" />
+
+                            <TextView
+                                android:id="@+id/wind_sc_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_below="@+id/wind_dir_tv"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="@dimen/too_large_text_size" />
+
+                            <View
+                                style="@style/VerticalLineStyle"
+                                android:layout_alignBottom="@+id/wind_sc_tv"
+                                android:layout_alignTop="@+id/wind_dir_tv" />
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/RelativeStyle">
+
+                            <TextView
+                                android:id="@+id/hum_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_centerHorizontal="true"
+                                android:text="相对湿度" />
+
+                            <TextView
+                                android:id="@+id/hum_data_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_below="@+id/hum_tv"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="@dimen/too_large_text_size" />
+
+                            <View
+                                style="@style/VerticalLineStyle"
+                                android:layout_alignBottom="@+id/hum_data_tv"
+                                android:layout_alignTop="@+id/hum_tv" />
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/RelativeStyle">
+
+                            <TextView
+                                android:id="@+id/fl_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_centerHorizontal="true"
+                                android:text="体感温度" />
+
+                            <TextView
+                                android:id="@+id/fl_data_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_below="@+id/fl_tv"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="@dimen/too_large_text_size" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/three_forecast_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/medium_margin"
+                    android:paddingRight="@dimen/medium_margin" />
+
+                <View style="@style/BaseLineStyle" />
+
+                <TextView
+                    android:id="@+id/fifteen_forecast_tv"
+                    style="@style/BaseBlackTextStyle"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/main_fifteen_forecast_selector"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/base_margin"
+                    android:paddingTop="@dimen/base_margin"
+                    android:text="@string/fifteen_days_forecast"
+                    android:textSize="@dimen/small_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_margin"
+                    android:background="@color/base_gray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lifestyle_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/base_margin"
+                    android:paddingRight="@dimen/base_margin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/base_gray"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/base_margin"
+                    android:paddingTop="@dimen/base_margin"
+                    android:text="@string/data_support"
+                    android:textColor="@color/base_text_color"
+                    android:textSize="@dimen/too_small_text_size" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/title_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/status_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/BaseWhiteTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_title_height"
+            android:gravity="center" />
+    </LinearLayout>
+</RelativeLayout>
