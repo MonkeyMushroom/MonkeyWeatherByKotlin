@@ -13,4 +13,11 @@
     <color name="base_text_color">#535353</color>
     <color name="light_text_color">#969696</color>
     <color name="base_line_color">#d6d6d6</color>
+
+    <color name="air_quality_good">#71B81F</color>
+    <color name="air_quality_fine">#DBB300</color>
+    <color name="air_quality_mild">#DC7F13</color>
+    <color name="air_quality_medium">#E3612A</color>
+    <color name="air_quality_bad">#8E6EDC</color>
+    <color name="air_quality_serious">#3a2470</color>
 </resources>

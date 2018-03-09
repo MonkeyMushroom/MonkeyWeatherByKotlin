@@ -44,6 +44,12 @@
         <activity
             android:name=".activity.AddCityActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FifteenForecastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AirQualityActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -54,7 +60,6 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".activity.FifteenForecastActivity"></activity>
     </application>
 
 </manifest>

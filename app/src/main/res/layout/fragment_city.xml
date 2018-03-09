@@ -45,7 +45,7 @@
                     <TextView
                         style="@style/BaseWhiteTextStyle"
                         android:layout_below="@+id/address_tv"
-                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_marginTop="@dimen/base_margin"
                         android:layout_toRightOf="@+id/temp_tv"
                         android:text="℃"
                         android:textSize="@dimen/large_text_size" />
@@ -56,23 +56,28 @@
                         android:layout_below="@+id/temp_tv"
                         android:layout_marginLeft="@dimen/base_margin" />
 
-                    <TextView
-                        android:id="@+id/air_qlty_tv"
-                        style="@style/BaseWhiteTextStyle"
+                    <LinearLayout
+                        android:id="@+id/air_qlty_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/temp_tv"
-                        android:layout_toRightOf="@+id/weather_tv" />
+                        android:layout_toRightOf="@+id/weather_tv"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/aqi_tv"
-                        style="@style/BaseWhiteTextStyle"
-                        android:layout_below="@+id/temp_tv"
-                        android:layout_toRightOf="@+id/air_qlty_tv" />
+                        <TextView
+                            android:id="@+id/air_qlty_tv"
+                            style="@style/BaseWhiteTextStyle" />
+
+                        <TextView
+                            android:id="@+id/aqi_tv"
+                            style="@style/BaseWhiteTextStyle" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/wind_ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/aqi_tv"
+                        android:layout_below="@id/weather_tv"
                         android:layout_marginTop="134dp"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/base_margin"

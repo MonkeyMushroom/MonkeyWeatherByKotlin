@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.monkey.monkeyweather.R
+import com.monkey.monkeyweather.activity.AirQualityActivity
 import com.monkey.monkeyweather.activity.FifteenForecastActivity
 import com.monkey.monkeyweather.activity.MainActivity
 import com.monkey.monkeyweather.adapter.LifeStyleAdapter
@@ -38,17 +39,11 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
     private var mAddress: String = ""
     private var mCity: String = ""
 
-    companion object {
-        const val LOCATION = "LOCATION"
-        const val ADDRESS = "ADDRESS"
-        const val CITY = "CITY"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLocation = arguments[LOCATION] as String
-        mAddress = arguments[ADDRESS] as String
-        mCity = arguments[CITY] as String
+        mLocation = arguments[MainActivity.LOCATION] as String
+        mAddress = arguments[MainActivity.ADDRESS] as String
+        mCity = arguments[MainActivity.CITY] as String
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -62,6 +57,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         val ptrHeader = PtrHeader(activity)
         refresh_layout.headerView = ptrHeader
         refresh_layout.addPtrUIHandler(ptrHeader)
+        air_qlty_ll.setOnClickListener(this)
         three_forecast_rv.isNestedScrollingEnabled = false
         three_forecast_rv.layoutManager = LinearLayoutManager(activity)
         three_forecast_rv.addItemDecoration(DividerItemDecoration(activity))
@@ -116,7 +112,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
                 val now = weather.now
                 title_tv.text = "$mAddress ${now.tmp}℃"
                 temp_tv.text = now.tmp
-                weather_tv.text = now.cond_txt
+                weather_tv.text = now.cond_txt + " | "
                 wind_dir_tv.text = now.wind_dir
                 wind_sc_tv.text = now.wind_sc + "级"
                 hum_data_tv.text = now.hum + "%"
@@ -156,7 +152,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
             val air = result.HeWeather6[0]
             if ("ok" == air.status) {
                 val nowCity = air.air_now_city
-                air_qlty_tv.text = " | " + nowCity.qlty
+                air_qlty_tv.text = nowCity.qlty
                 aqi_tv.text = " " + nowCity.aqi + " >"
             } else {
                 ToastUtil.show(activity, air.status)
@@ -175,6 +171,12 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
                 val intent = Intent(activity, FifteenForecastActivity::class.java)
                 intent.putExtra(MainActivity.LOCATION, mLocation)
                 intent.putExtra(FifteenForecastActivity.SELECT_POSITION, 0)
+                startActivity(intent)
+            }
+            R.id.air_qlty_ll -> {
+                val intent = Intent(activity, AirQualityActivity::class.java)
+                intent.putExtra(MainActivity.ADDRESS, mAddress)
+                intent.putExtra(MainActivity.CITY, mCity)
                 startActivity(intent)
             }
         }

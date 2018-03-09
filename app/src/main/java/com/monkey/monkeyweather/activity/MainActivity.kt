@@ -22,6 +22,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
         const val LOCATION = "LOCATION"
+        const val ADDRESS = "ADDRESS"
+        const val CITY = "CITY"
     }
 
     private var mLocationClient: LocationClient? = null
@@ -89,9 +91,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         override fun getItem(position: Int): Fragment {
             val fragment = CityFragment()
             val bundle = Bundle()
-            bundle.putString(CityFragment.LOCATION, "$longitude,$latitude")
-            bundle.putString(CityFragment.ADDRESS, "${mLocation!!.district} ${mLocation!!.street}")
-            bundle.putString(CityFragment.CITY, mLocation!!.city)
+            bundle.putString(LOCATION, "$longitude,$latitude")
+            bundle.putString(ADDRESS, "${mLocation!!.district} ${mLocation!!.street}")
+            bundle.putString(CITY, mLocation!!.city)
             fragment.arguments = bundle
             return fragment
         }
