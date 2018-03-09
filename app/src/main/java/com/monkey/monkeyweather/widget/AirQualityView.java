@@ -22,7 +22,7 @@ import com.monkey.monkeyweather.util.DensityUtil;
  * 201-300 重度污染
  * 300-500 严重污染
  */
-public class AirQualityViews extends View {
+public class AirQualityView extends View {
 
     private Paint mBottomPaint;
     private Paint mTopPaint;
@@ -32,15 +32,15 @@ public class AirQualityViews extends View {
     private int mStrokeWidth;
     private int mAirQuality;
 
-    public AirQualityViews(Context context) {
+    public AirQualityView(Context context) {
         this(context, null);
     }
 
-    public AirQualityViews(Context context, @Nullable AttributeSet attrs) {
+    public AirQualityView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AirQualityViews(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public AirQualityView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mBottomPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBottomPaint.setStyle(Paint.Style.STROKE);
