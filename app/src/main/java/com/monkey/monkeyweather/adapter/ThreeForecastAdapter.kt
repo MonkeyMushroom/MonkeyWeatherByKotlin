@@ -20,6 +20,7 @@ class ThreeForecastAdapter(data: List<DailyForecastBean>) :
         weatherTv.setCompoundDrawablesWithIntrinsicBounds(Constant.getWeatherIcon(item.cond_code_d), 0, 0, 0)
         helper.setText(R.id.temp_tv, item.tmp_min + " / " + item.tmp_max + "℃")
         when (item.date) {
+            CalendarUtil.getYesterday() -> helper.setText(R.id.date_tv, "昨天")
             CalendarUtil.getToday() -> helper.setText(R.id.date_tv, "今天")
             CalendarUtil.getTomorrow() -> helper.setText(R.id.date_tv, "明天")
             else -> helper.setText(R.id.date_tv, CalendarUtil.getWeek(item.date))

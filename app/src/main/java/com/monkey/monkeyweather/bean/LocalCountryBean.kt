@@ -3,13 +3,13 @@ package com.monkey.monkeyweather.bean
 /**
  * 本地国内外城市bean
  */
-data class LocalCountryBean(var Name: String, var Code: String, var State: List<LocalStateBean>) {
+data class LocalCountryBean(var name: String, var code: String, var province: List<LocalProvinceBean>) {
 
-    data class LocalStateBean(var Name: String, var Code: String, var City: List<LocalCityBean>) {
+    data class LocalProvinceBean(var name: String, var code: String, var city: List<LocalCityBean>) {
 
-        data class LocalCityBean(var Name: String, var Code: String, var Region: List<LocalRegionBean>) {
+        data class LocalCityBean(var name: String, var Code: String, var region: List<LocalRegionBean>) {
 
-            data class LocalRegionBean(var Name: String, var Code: String)
+            data class LocalRegionBean(var name: String, var code: String)
         }
     }
 }

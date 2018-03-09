@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/light_gray">
 
     <RelativeLayout
+        android:id="@+id/search_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -15,12 +16,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="34dp"
             android:background="@drawable/search_city_bg">
 
             <ImageView
                 android:id="@+id/back_iv"
-                android:layout_width="36dp"
+                android:layout_width="34dp"
                 android:layout_height="match_parent"
                 android:scaleType="center"
                 android:src="@drawable/back" />
@@ -41,11 +42,35 @@
 
             <ImageView
                 android:id="@+id/clear_iv"
-                android:layout_width="36dp"
+                android:layout_width="34dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:scaleType="center"
                 android:src="@drawable/clear" />
         </RelativeLayout>
     </RelativeLayout>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/hot_city_tv"
+        style="@style/BaseBlackTextStyle"
+        android:layout_below="@+id/search_rl"
+        android:layout_marginLeft="@dimen/base_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        android:text="@string/hot_city" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hot_city_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/hot_city_tv"
+        android:overScrollMode="never"
+        android:padding="@dimen/base_margin" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_result_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_rl"
+        android:overScrollMode="never"
+        android:visibility="gone" />
+</RelativeLayout>

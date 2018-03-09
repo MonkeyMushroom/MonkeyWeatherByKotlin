@@ -5,6 +5,7 @@
     <string name="life_style">生活指数</string>
     <string name="data_support">数据来源：和风天气</string>
     <string name="search_city">搜索国内外城市</string>
+    <string name="hot_city">热门城市</string>
 
     <string name="no_internet">没有网络</string>
     <string name="no_SDCard">SD卡没有插好</string>
