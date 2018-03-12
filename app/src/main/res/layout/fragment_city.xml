@@ -70,7 +70,8 @@
 
                         <TextView
                             android:id="@+id/aqi_tv"
-                            style="@style/BaseWhiteTextStyle" />
+                            style="@style/BaseWhiteTextStyle"
+                            android:gravity="center_vertical" />
                     </LinearLayout>
 
                     <LinearLayout

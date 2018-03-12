@@ -11,6 +11,7 @@ import com.monkey.monkeyweather.api.Api
 import com.monkey.monkeyweather.bean.BaseBean
 import com.monkey.monkeyweather.bean.NowAirBean
 import com.monkey.monkeyweather.util.ToastUtil
+import com.monkey.monkeyweather.widget.AirQualityView
 import com.monkey.monkeyweather.widget.PtrHeader
 import kotlinx.android.synthetic.main.activity_air_quality.*
 
@@ -52,7 +53,20 @@ class AirQualityActivity : AppCompatActivity(), View.OnClickListener {
             val air = result.HeWeather6[0]
             if ("ok" == air.status) {
                 val nowCity = air.air_now_city
-                air_qlty_view.setAirQuality(nowCity.aqi.toInt())
+                val aqiInt = nowCity.aqi.toInt()
+                air_qlty_view.setAirQuality(aqiInt)
+                air_qlty_tv.text = AirQualityView.getAirQualityText(aqiInt)[0]
+                air_qlty_tv.setTextColor(AirQualityView.getAirQualityColorResource(
+                        this@AirQualityActivity, aqiInt))
+                pub_time_tv.text = nowCity.pub_time + "发布"
+                suggest_tv.text = AirQualityView.getAirQualityText(aqiInt)[1]
+
+                PM2_5_value.text = nowCity.pm25
+                PM10_value.text = nowCity.pm10
+                SO2_value.text = nowCity.so2
+                NO2_value.text = nowCity.no2
+                CO_value.text = (nowCity.co.toFloat() * 1000).toInt().toString()
+                O3_value.text = nowCity.o3
             } else {
                 ToastUtil.show(this@AirQualityActivity, air.status)
             }

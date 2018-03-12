@@ -31,8 +31,8 @@ public class FifteenForecastTemperatureChartView extends View {
     private Paint mTempTextPaint;
     private RectF mTempRingRectF;
     private float mTempPointMargin;
-    private float mTempPointRadius1 = 12;
-    private float mTempPointRadius2 = 8;
+    private float mTempPointRadius1;
+    private float mTempPointRadius2;
 
     public FifteenForecastTemperatureChartView(Context context) {
         this(context, null);
@@ -57,6 +57,9 @@ public class FifteenForecastTemperatureChartView extends View {
         mTempTextPaint.setTextSize(getResources().getDimension(R.dimen.base_text_size));
 
         mTempRingRectF = new RectF();
+
+        mTempPointRadius1 = DensityUtil.Companion.dp2px(context, 4);
+        mTempPointRadius2 = DensityUtil.Companion.dp2px(context, 2.66f);
     }
 
     /**

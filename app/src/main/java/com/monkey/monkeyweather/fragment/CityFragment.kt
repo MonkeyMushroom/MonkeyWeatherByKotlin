@@ -112,7 +112,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
                 val now = weather.now
                 title_tv.text = "$mAddress ${now.tmp}℃"
                 temp_tv.text = now.tmp
-                weather_tv.text = now.cond_txt + " | "
+                weather_tv.text = now.cond_txt + " 丨 "
                 wind_dir_tv.text = now.wind_dir
                 wind_sc_tv.text = now.wind_sc + "级"
                 hum_data_tv.text = now.hum + "%"
@@ -153,7 +153,8 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
             if ("ok" == air.status) {
                 val nowCity = air.air_now_city
                 air_qlty_tv.text = nowCity.qlty
-                aqi_tv.text = " " + nowCity.aqi + " >"
+                aqi_tv.text = " " + nowCity.aqi + " "
+                aqi_tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_right, 0)
             } else {
                 ToastUtil.show(activity, air.status)
             }

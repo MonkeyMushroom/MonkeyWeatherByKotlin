@@ -47,4 +47,9 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:background">@color/base_white</item>
     </style>
+
+    <style name="MainContaminantTv" parent="BaseTextStyle">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@color/light_text_color</item>
+    </style>
 </resources>

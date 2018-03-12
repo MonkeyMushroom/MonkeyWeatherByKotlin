@@ -7,6 +7,8 @@
     <string name="search_city">搜索国内外城市</string>
     <string name="hot_city">热门城市</string>
     <string name="air_quality_index">空气质量指数</string>
+    <string name="main_contaminant">主要污染物</string>
+    <string name="air_quality_unit">单位:μg/m³</string>
 
     <string name="no_internet">没有网络</string>
     <string name="no_SDCard">SD卡没有插好</string>

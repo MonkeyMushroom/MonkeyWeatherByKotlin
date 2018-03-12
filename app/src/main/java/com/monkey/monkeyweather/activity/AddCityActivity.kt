@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.adapter.HotCityAdapter
 import com.monkey.monkeyweather.bean.LocalCountryBean
@@ -29,6 +30,7 @@ class AddCityActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_city)
+        StatusBarUtil.setColor(this, resources.getColor(R.color.colorPrimaryDark), 0)
         back_iv.setOnClickListener(this)
         clear_iv.setOnClickListener(this)
         window.decorView.postDelayed({
