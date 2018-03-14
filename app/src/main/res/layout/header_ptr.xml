@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -7,12 +8,12 @@
     android:paddingBottom="@dimen/base_margin"
     android:paddingTop="@dimen/base_margin">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/ptr_iv"
         android:layout_width="@dimen/large_margin"
         android:layout_height="@dimen/large_margin"
         android:scaleType="fitXY"
-        android:src="@drawable/ptr_header" />
+        app:srcCompat="@drawable/logo_anim" />
 
     <TextView
         android:id="@+id/ptr_tv"

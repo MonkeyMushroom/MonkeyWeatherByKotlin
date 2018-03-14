@@ -3,6 +3,7 @@ package com.monkey.monkeyweather.fragment
 
 import `in`.srain.cube.views.ptr.PtrDefaultHandler
 import `in`.srain.cube.views.ptr.PtrFrameLayout
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -36,7 +37,7 @@ import kotlinx.android.synthetic.main.fragment_city.*
 class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.OnClickListener {
 
     private var mLocation: String = ""
-    private var mAddress: String = ""
+    private var mAddress: String = "定位中…"
     private var mCity: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,12 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         mLocation = arguments[MainActivity.LOCATION] as String
         mAddress = arguments[MainActivity.ADDRESS] as String
         mCity = arguments[MainActivity.CITY] as String
+    }
+
+    fun setLocationData(location: String, address: String, city: String) {
+        mLocation = location
+        mAddress = address
+        mCity = city
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -95,6 +102,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
      */
     private inner class OnPullDownToRefreshListener : PtrDefaultHandler() {
         override fun onRefreshBegin(frame: PtrFrameLayout) {
+            address_tv.text = mAddress
             Api.getWeather(activity, mLocation, OnWeatherRequestListener())
             Api.getNowAir(activity, mCity, OnNowAirRequestListener())
         }
@@ -139,6 +147,11 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
 
         override fun onComplete() {
             super.onComplete()
+            refresh_layout.refreshComplete()
+        }
+
+        override fun onError(context: Context, e: Throwable) {
+            super.onError(context, e)
             refresh_layout.refreshComplete()
         }
     }

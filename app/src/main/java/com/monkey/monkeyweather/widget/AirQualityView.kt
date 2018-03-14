@@ -47,6 +47,7 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
         mNumberPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mNumberPaint.style = Paint.Style.FILL
         mNumberPaint.textSize = DensityUtil.sp2px(context, 26f).toFloat()
+        mNumberPaint.color = resources.getColor(R.color.air_quality_good)
 
         mArcRectF = RectF()
         mTextRect = Rect()
@@ -109,10 +110,12 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
         canvas.drawArc(mArcRectF, -225f, 270f, false, mBottomRingPaint)
         canvas.drawArc(mArcRectF, -225f, (mAirQuality * 270 / 400).toFloat(), false, mTopRingPaint)
 
-        val qualityStr = mAirQuality.toString()
-        val qualityStrWidth = mNumberPaint.measureText(qualityStr)
-        canvas.drawText(qualityStr, 0, qualityStr.length,
-                (width - qualityStrWidth) / 2, (height / 2).toFloat(), mNumberPaint)
+        if (mAirQuality != 0) {
+            val qualityStr = mAirQuality.toString()
+            val qualityStrWidth = mNumberPaint.measureText(qualityStr)
+            canvas.drawText(qualityStr, 0, qualityStr.length,
+                    (width - qualityStrWidth) / 2, (height / 2).toFloat(), mNumberPaint)
+        }
 
         val nameStr = context.getString(R.string.air_quality_index)
         mNamePaint.getTextBounds(nameStr, 0, nameStr.length, mTextRect)
@@ -161,12 +164,13 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
                     colorArr[4] = mColorArr[4]
                 }
                 airQuality > 300 -> {//严重污染
-                    colorArr = IntArray(5)
+                    colorArr = IntArray(6)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
                     colorArr[2] = mColorArr[2]
                     colorArr[3] = mColorArr[3]
                     colorArr[4] = mColorArr[4]
+                    colorArr[5] = mColorArr[5]
                 }
             }
             return colorArr
@@ -203,20 +207,30 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
             var text = ""
             var suggest = ""
             when {
-                airQuality <= 50 -> //优
+                airQuality <= 50 -> { //优
                     text = "优"
-                airQuality in 51..100 -> //良
+                    suggest = "空气棒极了，快出去呼吸新鲜空气吧！"
+                }
+                airQuality in 51..100 -> { //良
                     text = "良"
-                airQuality in 101..150 -> //轻度污染
+                    suggest = "空气还不错，不影响正常出行"
+                }
+                airQuality in 101..150 -> { //轻度污染
                     text = "轻度污染"
-                airQuality in 151..200 -> //中度污染
+                    suggest = "空气较差，请尽量减少外出，关闭门窗"
+                }
+                airQuality in 151..200 -> { //中度污染
                     text = "中度污染"
+                    suggest = "空气很差，请减少外出，关闭门窗"
+                }
                 airQuality in 201..300 -> {//重度污染
                     text = "重度污染"
                     suggest = "空气很差，请减少外出，关闭门窗"
                 }
-                airQuality > 300 -> //严重污染
+                airQuality > 300 -> { //严重污染
                     text = "严重污染"
+                    suggest = "空气很差，请减少外出，关闭门窗"
+                }
             }
             arr[0] = text
             arr[1] = suggest

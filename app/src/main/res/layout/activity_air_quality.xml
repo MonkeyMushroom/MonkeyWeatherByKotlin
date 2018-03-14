@@ -59,7 +59,6 @@
                         android:id="@id/air_qlty_tv"
                         style="@style/BaseBlackTextStyle"
                         android:layout_toRightOf="@+id/air_qlty_view"
-                        android:text="优"
                         android:textColor="@color/air_quality_good"
                         android:textSize="@dimen/too_large_text_size" />
 

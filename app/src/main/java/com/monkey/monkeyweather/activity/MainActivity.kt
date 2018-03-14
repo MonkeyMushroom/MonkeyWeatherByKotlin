@@ -1,8 +1,8 @@
 package com.monkey.monkeyweather.activity
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.view.View
@@ -14,8 +14,8 @@ import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.fragment.CityFragment
 import com.monkey.monkeyweather.util.LogUtil
-import com.monkey.monkeyweather.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_city.*
 
 
 class MainActivity : BaseActivity(), View.OnClickListener {
@@ -36,8 +36,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         StatusBarUtil.setTranslucentForImageView(this, 0, null)
-        add_iv.setOnClickListener(this)
-        more_iv.setOnClickListener(this)
+//        add_iv.setOnClickListener(this)
+        refresh_iv.setOnClickListener(this)
         getLocation()
     }
 
@@ -48,6 +48,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         val option = LocationClientOption()
         option.setIsNeedAddress(true)
         mLocationClient!!.locOption = option
+        checkRuntimePermission()
+    }
+
+    private fun checkRuntimePermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
         checkRuntimePermission(permissions, object : BaseActivity.RuntimePermissionListener {
@@ -56,7 +60,13 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onRuntimePermissionDenied() {
-                ToastUtil.show(this@MainActivity, "拒绝权限无法精确获取当前位置的天气情况哦O(∩_∩)O")
+                val snakeBar = Snackbar.make(root_rl, getString(R.string.permission_denied), Snackbar.LENGTH_LONG)
+                        .setAction("获取权限", {
+                            checkRuntimePermission()
+                        })
+                        .setActionTextColor(resources.getColor(R.color.base_white))
+                snakeBar.view.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
+                snakeBar.show()
             }
         })
     }
@@ -79,7 +89,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
             LogUtil.e("--> $longitude $latitude $radius $coorType $errorCode\n" +
                     "$addr $country $province $city $district $street")
-            city_pager.adapter = CityPagerAdapter()
+            if (city_pager.adapter == null) {
+                city_pager.adapter = CityPagerAdapter()
+            } else {
+                val fragment = supportFragmentManager.fragments[city_pager.currentItem] as CityFragment
+                fragment.setLocationData("$longitude,$latitude",
+                        "${mLocation!!.district} ${mLocation!!.street}", mLocation!!.city)
+                fragment.scroller.scrollTo(0, 0)
+                fragment.refresh_layout.autoRefresh()
+            }
         }
     }
 
@@ -101,10 +119,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.add_iv ->
-                startActivity(Intent(this@MainActivity, AddCityActivity::class.java))
-            R.id.more_iv ->
-                ToastUtil.show(this, "more")
+//            R.id.add_iv ->
+//                startActivity(Intent(this@MainActivity, AddCityActivity::class.java))
+            R.id.refresh_iv ->
+                getLocation()
         }
     }
 }

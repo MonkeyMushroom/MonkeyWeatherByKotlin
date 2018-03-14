@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/logo_svg">
+    <target
+        android:name="left_cloud"
+        android:animation="@animator/logo_left_cloud_anim" />
+    <target
+        android:name="right_cloud"
+        android:animation="@animator/logo_right_cloud_anim" />
+</animated-vector>

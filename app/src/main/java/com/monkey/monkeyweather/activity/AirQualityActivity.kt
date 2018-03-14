@@ -2,8 +2,11 @@ package com.monkey.monkeyweather.activity
 
 import `in`.srain.cube.views.ptr.PtrDefaultHandler
 import `in`.srain.cube.views.ptr.PtrFrameLayout
+import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.AbsoluteSizeSpan
 import android.view.View
 import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_air_quality.*
 /**
  * 空气质量详情页
  */
-class AirQualityActivity : AppCompatActivity(), View.OnClickListener {
+class AirQualityActivity : BaseActivity(), View.OnClickListener {
 
     private var mAddress = ""
     private var mCity = ""
@@ -63,17 +66,35 @@ class AirQualityActivity : AppCompatActivity(), View.OnClickListener {
 
                 PM2_5_value.text = nowCity.pm25
                 PM10_value.text = nowCity.pm10
+                SO2.text = getSpannableString("SO2")
                 SO2_value.text = nowCity.so2
+                NO2.text = getSpannableString("NO2")
                 NO2_value.text = nowCity.no2
                 CO_value.text = (nowCity.co.toFloat() * 1000).toInt().toString()
+                O3.text = getSpannableString("O3")
                 O3_value.text = nowCity.o3
             } else {
                 ToastUtil.show(this@AirQualityActivity, air.status)
             }
         }
 
+        /**
+         * 分段改变字体大小，完成化学式显示
+         */
+        private fun getSpannableString(content: String): SpannableString {
+            val ssb = SpannableString(content)
+            ssb.setSpan(AbsoluteSizeSpan(22), content.lastIndex,
+                    content.lastIndex + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+            return ssb
+        }
+
         override fun onComplete() {
             super.onComplete()
+            refresh_layout.refreshComplete()
+        }
+
+        override fun onError(context: Context, e: Throwable) {
+            super.onError(context, e)
             refresh_layout.refreshComplete()
         }
     }

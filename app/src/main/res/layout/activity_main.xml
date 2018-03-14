@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.monkey.monkeyweather.activity.MainActivity">
@@ -21,23 +22,21 @@
 
         <View style="@style/BaseLineStyle" />
 
-        <ImageView
-            android:id="@+id/add_iv"
-            android:layout_width="@dimen/base_title_height"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/small_margin"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="center"
-            android:src="@drawable/add" />
+        <!--<ImageView-->
+        <!--android:id="@+id/add_iv"-->
+        <!--android:layout_width="@dimen/base_title_height"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="@dimen/small_margin"-->
+        <!--android:scaleType="center"-->
+        <!--android:src="@drawable/add" />-->
 
         <ImageView
-            android:id="@+id/more_iv"
+            android:id="@+id/refresh_iv"
             android:layout_width="@dimen/base_title_height"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/small_margin"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="center"
-            android:src="@drawable/more" />
+            android:src="@drawable/refresh" />
     </RelativeLayout>
 </RelativeLayout>

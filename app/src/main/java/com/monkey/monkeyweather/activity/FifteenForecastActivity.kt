@@ -1,7 +1,6 @@
 package com.monkey.monkeyweather.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.monkey.monkeyweather.R
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_fifteen_forecast.*
 /**
  * 15天趋势预报
  */
-class FifteenForecastActivity : AppCompatActivity(), View.OnClickListener {
+class FifteenForecastActivity : BaseActivity(), View.OnClickListener {
 
     private var mLocation: String = ""
     private var mSelectPos: Int = 0
