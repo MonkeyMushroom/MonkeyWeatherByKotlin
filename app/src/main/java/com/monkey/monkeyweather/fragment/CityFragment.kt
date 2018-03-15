@@ -5,10 +5,16 @@ import `in`.srain.cube.views.ptr.PtrDefaultHandler
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,6 +86,8 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         address_tv.text = mAddress
         Api.getWeather(activity, mLocation, OnWeatherRequestListener())
         Api.getNowAir(activity, mCity, OnNowAirRequestListener())
+
+        setGithubLink()
     }
 
     /**
@@ -193,6 +201,34 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
                 intent.putExtra(MainActivity.CITY, mCity)
                 startActivity(intent)
             }
+        }
+    }
+
+    /**
+     * 底部说明中的开源地址可点击
+     */
+    private fun setGithubLink() {
+        val content = notice_tv.text.toString()
+        val ss = SpannableString(content)
+        val start = content.indexOf("-") + 1
+        val end = content.lastIndexOf("-")
+        val link = content.substring(start, end)
+        ss.setSpan(ClickSpan(link), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        notice_tv.text = ss
+        notice_tv.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    inner class ClickSpan(private var link: String) : ClickableSpan() {
+
+        override fun onClick(widget: View?) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(link)
+            startActivity(intent)
+        }
+
+        override fun updateDrawState(ds: TextPaint?) {
+            ds!!.flags = TextPaint.UNDERLINE_TEXT_FLAG
+            ds.color = resources.getColor(R.color.colorPrimaryDark)
         }
     }
 }

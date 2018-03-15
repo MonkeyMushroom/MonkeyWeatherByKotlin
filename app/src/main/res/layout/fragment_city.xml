@@ -176,6 +176,7 @@
                     android:paddingRight="@dimen/base_margin" />
 
                 <TextView
+                    android:id="@+id/notice_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/base_gray"

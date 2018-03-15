@@ -5,7 +5,7 @@
     <string name="fifteen_days_forecast">15天趋势预报</string>
     <string name="life_style">生活指数</string>
     <string name="special_instructions">数据来源：和风天气\nUI模仿自：小米天气\n使用语言：Kotlin\n开发者：猴菇同学
-        \n开源协议：GNU GENERAL PUBLIC LICENSE\n开源地址：https://github.com/MonkeyMushroom/MonkeyWeatherByKotlin
+        \n开源协议：GNU GENERAL PUBLIC LICENSE\n开源地址-https://github.com/MonkeyMushroom/MonkeyWeatherByKotlin-
         \n欢迎交流学习！</string>
     <string name="search_city">搜索国内外城市</string>
     <string name="hot_city">热门城市</string>
