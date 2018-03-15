@@ -83,7 +83,7 @@ class AirQualityActivity : BaseActivity(), View.OnClickListener {
          */
         private fun getSpannableString(content: String): SpannableString {
             val ssb = SpannableString(content)
-            ssb.setSpan(AbsoluteSizeSpan(22), content.lastIndex,
+            ssb.setSpan(AbsoluteSizeSpan(9, true), content.lastIndex,
                     content.lastIndex + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
             return ssb
         }

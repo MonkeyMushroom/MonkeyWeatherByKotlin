@@ -56,7 +56,7 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
     fun setAirQuality(airQuality: Int) {
         //指数递增动画
         val numberAnim = ValueAnimator.ofInt(0, airQuality)
-        numberAnim.duration = (airQuality * 2000 / 400).toLong()
+        numberAnim.duration = (airQuality * 10).toLong()
         numberAnim.addUpdateListener { animation ->
             mAirQuality = animation.animatedValue as Int
             invalidate()
@@ -65,13 +65,13 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
         //颜色渐变动画
         val colorAnim: ValueAnimator
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            colorAnim = ValueAnimator.ofArgb(*getAirQualityColorArr(airQuality))
+            colorAnim = ValueAnimator.ofArgb(*getAirQualityAnimColorValues(airQuality))
         } else {
             colorAnim = ValueAnimator()
-            colorAnim.setIntValues(*getAirQualityColorArr(airQuality))
+            colorAnim.setIntValues(*getAirQualityAnimColorValues(airQuality))
             colorAnim.setEvaluator(ColorArgbEvaluator())
         }
-        colorAnim.duration = (airQuality * 2000 / 400).toLong()
+        colorAnim.duration = (airQuality * 10).toLong()
         colorAnim.addUpdateListener { animation ->
             //先转16进制，再parse
             val color = Color.parseColor("#" + Integer.toHexString(animation.animatedValue as Int))
@@ -124,38 +124,35 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     companion object {
-        //污染级别颜色
-        private val mColorArr = intArrayOf(0x0071B81F, 0x00DBB300, 0x00DC7F13, 0x00E3612A, 0x008E6EDC, 0x003a2470)
+        //污染级别颜色，初始值浅灰色
+        private val mColorArr = intArrayOf(0x00efefef, 0x0071B81F, 0x00DBB300
+                , 0x00DC7F13, 0x00E3612A, 0x008E6EDC, 0x003a2470)
 
         /**
          * 根据空气质量返回数组，该数组表示从优、良、轻度污染等的色值渐变
          */
-        fun getAirQualityColorArr(airQuality: Int): IntArray {
+        fun getAirQualityAnimColorValues(airQuality: Int): IntArray {
             var colorArr = IntArray(0)
             when {
                 airQuality <= 50 -> {//优
-                    colorArr = IntArray(1)
-                    colorArr[0] = mColorArr[0]
-                }
-                airQuality in 51..100 -> {//良
                     colorArr = IntArray(2)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
                 }
-                airQuality in 101..150 -> {//轻度污染
+                airQuality in 51..100 -> {//良
                     colorArr = IntArray(3)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
                     colorArr[2] = mColorArr[2]
                 }
-                airQuality in 151..200 -> {//中度污染
+                airQuality in 101..150 -> {//轻度污染
                     colorArr = IntArray(4)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
                     colorArr[2] = mColorArr[2]
                     colorArr[3] = mColorArr[3]
                 }
-                airQuality in 201..300 -> {//重度污染
+                airQuality in 151..200 -> {//中度污染
                     colorArr = IntArray(5)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
@@ -163,7 +160,7 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
                     colorArr[3] = mColorArr[3]
                     colorArr[4] = mColorArr[4]
                 }
-                airQuality > 300 -> {//严重污染
+                airQuality in 201..300 -> {//重度污染
                     colorArr = IntArray(6)
                     colorArr[0] = mColorArr[0]
                     colorArr[1] = mColorArr[1]
@@ -171,6 +168,16 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
                     colorArr[3] = mColorArr[3]
                     colorArr[4] = mColorArr[4]
                     colorArr[5] = mColorArr[5]
+                }
+                airQuality > 300 -> {//严重污染
+                    colorArr = IntArray(7)
+                    colorArr[0] = mColorArr[0]
+                    colorArr[1] = mColorArr[1]
+                    colorArr[2] = mColorArr[2]
+                    colorArr[3] = mColorArr[3]
+                    colorArr[4] = mColorArr[4]
+                    colorArr[5] = mColorArr[5]
+                    colorArr[5] = mColorArr[6]
                 }
             }
             return colorArr
@@ -209,11 +216,11 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
             when {
                 airQuality <= 50 -> { //优
                     text = "优"
-                    suggest = "空气棒极了，快出去呼吸新鲜空气吧！"
+                    suggest = "空气很好，快呼吸新鲜空气，拥抱大自然吧"
                 }
                 airQuality in 51..100 -> { //良
                     text = "良"
-                    suggest = "空气还不错，不影响正常出行"
+                    suggest = "空气质量可以接受，可能对少数异常敏感的人群健康有较弱影响"
                 }
                 airQuality in 101..150 -> { //轻度污染
                     text = "轻度污染"

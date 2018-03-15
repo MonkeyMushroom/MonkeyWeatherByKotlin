@@ -3,6 +3,7 @@ package com.monkey.monkeyweather.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.jaeger.library.StatusBarUtil
 import com.monkey.monkeyweather.R
 import com.monkey.monkeyweather.adapter.FifteenForecastAdapter
 import com.monkey.monkeyweather.api.Api
@@ -26,11 +27,12 @@ class FifteenForecastActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fifteen_forecast)
+        StatusBarUtil.setColor(this, resources.getColor(R.color.colorPrimaryDark), 0)
         close_iv.setOnClickListener(this)
         fifteen_forecast_rv.layoutManager = LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false)
         mLocation = intent.getStringExtra(MainActivity.LOCATION)
-        mSelectPos = intent.getIntExtra(SELECT_POSITION,0)
+        mSelectPos = intent.getIntExtra(SELECT_POSITION, 0)
         Api.getWeatherForecast(this, mLocation, OnWeatherForecastRequestListener())
     }
 
