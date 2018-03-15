@@ -7,6 +7,8 @@
     <string name="special_instructions">数据来源：和风天气\nUI模仿自：小米天气\n使用语言：Kotlin\n开发者：猴菇同学
         \n开源协议：GNU GENERAL PUBLIC LICENSE\n开源地址-https://github.com/MonkeyMushroom/MonkeyWeatherByKotlin-
         \n欢迎交流学习！</string>
+    <string name="nick_name">猴菇同学</string>
+    <string name="csdn_blog">http://blog.csdn.net/qq_31715429</string>
     <string name="search_city">搜索国内外城市</string>
     <string name="hot_city">热门城市</string>
     <string name="air_quality_index">空气质量指数</string>

@@ -87,7 +87,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         Api.getWeather(activity, mLocation, OnWeatherRequestListener())
         Api.getNowAir(activity, mCity, OnNowAirRequestListener())
 
-        setGithubLink()
+        setLink()
     }
 
     /**
@@ -205,15 +205,19 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
     }
 
     /**
-     * 底部说明中的开源地址可点击
+     * 底部说明中的csdn、github地址可点击
      */
-    private fun setGithubLink() {
+    private fun setLink() {
         val content = notice_tv.text.toString()
         val ss = SpannableString(content)
-        val start = content.indexOf("-") + 1
-        val end = content.lastIndexOf("-")
-        val link = content.substring(start, end)
-        ss.setSpan(ClickSpan(link), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        val gitStart = content.indexOf("-") + 1
+        val gitEnd = content.lastIndexOf("-")
+        val gitLink = content.substring(gitStart, gitEnd)
+        val csdnStart = content.indexOf(resources.getString(R.string.nick_name))
+        val csdnEnd = csdnStart + resources.getString(R.string.nick_name).length
+        val csdnLink = resources.getString(R.string.csdn_blog)
+        ss.setSpan(ClickSpan(gitLink), gitStart, gitEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        ss.setSpan(ClickSpan(csdnLink), csdnStart, csdnEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         notice_tv.text = ss
         notice_tv.movementMethod = LinkMovementMethod.getInstance()
     }
