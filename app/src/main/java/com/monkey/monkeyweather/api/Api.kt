@@ -1,10 +1,7 @@
 package com.monkey.monkeyweather.api
 
 import android.content.Context
-import com.monkey.monkeyweather.bean.BaseBean
-import com.monkey.monkeyweather.bean.ForecastBean
-import com.monkey.monkeyweather.bean.NowAirBean
-import com.monkey.monkeyweather.bean.WeatherBean
+import com.monkey.monkeyweather.bean.*
 import com.monkey.monkeyweather.util.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -48,6 +45,19 @@ object Api : RetrofitUtil() {
      */
     fun getWeather(context: Context, location: String, listener: OnNetworkRequestListenerAdapter<BaseBean<List<WeatherBean>>>): Disposable {
         return getService().getWeather(location, getBaseParams(location))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ bean ->
+                    listener.onSuccess(bean)
+                }, { e ->
+                    listener.onError(context, e)
+                }, { listener.onComplete() })
+    }
+
+    /**
+     * 3-7天日出日落时间
+     */
+    fun getSunriseSunset(context: Context, location: String, listener: OnNetworkRequestListenerAdapter<BaseBean<List<SunriseSunsetBean>>>): Disposable {
+        return getService().getSunriseSunset(location, getBaseParams(location))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ bean ->
                     listener.onSuccess(bean)

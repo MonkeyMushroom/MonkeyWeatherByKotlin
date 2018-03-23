@@ -29,7 +29,9 @@ import com.monkey.monkeyweather.adapter.ThreeForecastAdapter
 import com.monkey.monkeyweather.api.Api
 import com.monkey.monkeyweather.bean.BaseBean
 import com.monkey.monkeyweather.bean.NowAirBean
+import com.monkey.monkeyweather.bean.SunriseSunsetBean
 import com.monkey.monkeyweather.bean.WeatherBean
+import com.monkey.monkeyweather.util.LogUtil
 import com.monkey.monkeyweather.util.ScreenUtil
 import com.monkey.monkeyweather.util.ToastUtil
 import com.monkey.monkeyweather.widget.DividerItemDecoration
@@ -42,19 +44,16 @@ import kotlinx.android.synthetic.main.fragment_city.*
  */
 class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.OnClickListener {
 
-    private var mLocation: String = ""
     private var mAddress: String = "定位中…"
     private var mCity: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLocation = arguments[MainActivity.LOCATION] as String
         mAddress = arguments[MainActivity.ADDRESS] as String
         mCity = arguments[MainActivity.CITY] as String
     }
 
-    fun setLocationData(location: String, address: String, city: String) {
-        mLocation = location
+    fun setLocationData(address: String, city: String) {
         mAddress = address
         mCity = city
     }
@@ -75,6 +74,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         three_forecast_rv.layoutManager = LinearLayoutManager(activity)
         three_forecast_rv.addItemDecoration(DividerItemDecoration(activity))
         fifteen_forecast_tv.setOnClickListener(this)
+        lifestyle_rv.isFocusable = false
         lifestyle_rv.isNestedScrollingEnabled = false
         lifestyle_rv.layoutManager = LinearLayoutManager(activity)
         lifestyle_rv.addItemDecoration(DividerItemDecoration(activity))
@@ -84,18 +84,14 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         scroller.setOnScrollChangeListener(this)
 
         address_tv.text = mAddress
-        Api.getWeather(activity, mLocation, OnWeatherRequestListener())
-        Api.getNowAir(activity, mCity, OnNowAirRequestListener())
+        requestNetwork()
 
-        setLink()
+        setBottomLink()
     }
 
-    /**
-     * 标题栏渐变
-     */
     override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
         val titleHeight = resources.getDimensionPixelSize(R.dimen.base_title_height) + ScreenUtil.getStatusBarHeight(activity)
-        when {
+        when {//标题栏渐变
             scrollY < wind_ll.top -> title_ll.alpha = 0f//透明
             scrollY in wind_ll.top..(three_forecast_rv.top - titleHeight) -> {//渐变
                 val percent = (scrollY - wind_ll.top) * 100 / (three_forecast_rv.top - wind_ll.top - titleHeight)
@@ -103,6 +99,8 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
             }
             else -> title_ll.alpha = 1f//不透明
         }
+        //日出日落控件的动画
+        sunrise_sunset_view.startAnim()
     }
 
     /**
@@ -111,9 +109,14 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
     private inner class OnPullDownToRefreshListener : PtrDefaultHandler() {
         override fun onRefreshBegin(frame: PtrFrameLayout) {
             address_tv.text = mAddress
-            Api.getWeather(activity, mLocation, OnWeatherRequestListener())
-            Api.getNowAir(activity, mCity, OnNowAirRequestListener())
+            requestNetwork()
         }
+    }
+
+    private fun requestNetwork() {
+        Api.getWeather(activity, mCity, OnWeatherRequestListener())
+        Api.getNowAir(activity, mCity, OnNowAirRequestListener())
+        Api.getSunriseSunset(activity, mCity, OnSunriseSunsetRequestListener())
     }
 
     /**
@@ -133,12 +136,13 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
                 wind_sc_tv.text = now.wind_sc + "级"
                 hum_data_tv.text = now.hum + "%"
                 fl_data_tv.text = now.fl + "℃"
+                pres_data_tv.text = now.pres + "hPa"
 
                 val forecastAdapter = ThreeForecastAdapter(weather.daily_forecast)
                 forecastAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener(
                         { _: BaseQuickAdapter<Any, BaseViewHolder>, _: View, i: Int ->
                             val intent = Intent(activity, FifteenForecastActivity::class.java)
-                            intent.putExtra(MainActivity.LOCATION, mLocation)
+                            intent.putExtra(MainActivity.CITY, mCity)
                             intent.putExtra(FifteenForecastActivity.SELECT_POSITION, i)
                             startActivity(intent)
                         })
@@ -173,7 +177,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
             val air = result.HeWeather6[0]
             if ("ok" == air.status) {
                 val nowCity = air.air_now_city
-                air_qlty_tv.text = nowCity.qlty
+                air_qlty_tv.text = "空气" + nowCity.qlty
                 aqi_tv.text = " " + nowCity.aqi + " "
                 aqi_tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_right, 0)
             } else {
@@ -187,11 +191,36 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
         }
     }
 
+    /**
+     * 3-7天日出日落时间
+     */
+    inner class OnSunriseSunsetRequestListener : Api.OnNetworkRequestListenerAdapter<BaseBean<List<SunriseSunsetBean>>>() {
+        override fun onSuccess(result: BaseBean<List<SunriseSunsetBean>>) {
+            super.onSuccess(result)
+            val weather = result.HeWeather6[0]
+            if ("ok" == weather.status) {
+                val sunriseSunset = weather.sunrise_sunset[0]
+                val date = sunriseSunset.date
+                val sr = sunriseSunset.sr
+                val ss = sunriseSunset.ss
+                sunrise_sunset_view.setSunriseSunsetTime("$date $sr", "$date $ss")
+                LogUtil.e("--> $sr $ss")
+            } else {
+                ToastUtil.show(activity, weather.status)
+            }
+        }
+
+        override fun onComplete() {
+            super.onComplete()
+            refresh_layout.refreshComplete()
+        }
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.fifteen_forecast_tv -> {
                 val intent = Intent(activity, FifteenForecastActivity::class.java)
-                intent.putExtra(MainActivity.LOCATION, mLocation)
+                intent.putExtra(MainActivity.CITY, mCity)
                 intent.putExtra(FifteenForecastActivity.SELECT_POSITION, 0)
                 startActivity(intent)
             }
@@ -207,7 +236,7 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
     /**
      * 底部说明中的csdn、github地址可点击
      */
-    private fun setLink() {
+    private fun setBottomLink() {
         val content = notice_tv.text.toString()
         val ss = SpannableString(content)
         val gitStart = content.indexOf("-") + 1
@@ -230,9 +259,9 @@ class CityFragment : Fragment(), NestedScrollView.OnScrollChangeListener, View.O
             startActivity(intent)
         }
 
-        override fun updateDrawState(ds: TextPaint?) {
-            ds!!.flags = TextPaint.UNDERLINE_TEXT_FLAG
-            ds.color = resources.getColor(R.color.colorPrimaryDark)
+        override fun updateDrawState(paint: TextPaint?) {
+            paint!!.flags = TextPaint.UNDERLINE_TEXT_FLAG
+            paint.color = resources.getColor(R.color.colorPrimaryDark)
         }
     }
 }

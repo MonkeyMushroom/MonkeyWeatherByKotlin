@@ -87,13 +87,13 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private fun measure(measureSpec: Int): Int {
         var result: Int
-        val mode = View.MeasureSpec.getMode(measureSpec)
-        val size = View.MeasureSpec.getSize(measureSpec)
-        if (mode == View.MeasureSpec.EXACTLY) {
+        val mode = MeasureSpec.getMode(measureSpec)
+        val size = MeasureSpec.getSize(measureSpec)
+        if (mode == MeasureSpec.EXACTLY) {
             result = size
         } else {
             result = DensityUtil.dp2px(context, 100f)
-            if (mode == View.MeasureSpec.AT_MOST) {
+            if (mode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, size)
             }
         }

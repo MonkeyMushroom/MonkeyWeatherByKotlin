@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_fifteen_forecast.*
  */
 class FifteenForecastActivity : BaseActivity(), View.OnClickListener {
 
-    private var mLocation: String = ""
+    private var mCity: String = ""
     private var mSelectPos: Int = 0
 
     companion object {
@@ -31,9 +31,9 @@ class FifteenForecastActivity : BaseActivity(), View.OnClickListener {
         close_iv.setOnClickListener(this)
         fifteen_forecast_rv.layoutManager = LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false)
-        mLocation = intent.getStringExtra(MainActivity.LOCATION)
+        mCity = intent.getStringExtra(MainActivity.CITY)
         mSelectPos = intent.getIntExtra(SELECT_POSITION, 0)
-        Api.getWeatherForecast(this, mLocation, OnWeatherForecastRequestListener())
+        Api.getWeatherForecast(this, mCity, OnWeatherForecastRequestListener())
     }
 
     /**

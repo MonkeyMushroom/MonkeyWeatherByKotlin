@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_city.*
 class MainActivity : BaseActivity(), View.OnClickListener {
 
     companion object {
-        const val LOCATION = "LOCATION"
         const val ADDRESS = "ADDRESS"
         const val CITY = "CITY"
     }
@@ -93,8 +92,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 city_pager.adapter = CityPagerAdapter()
             } else {
                 val fragment = supportFragmentManager.fragments[city_pager.currentItem] as CityFragment
-                fragment.setLocationData("$longitude,$latitude",
-                        "${mLocation!!.district} ${mLocation!!.street}", mLocation!!.city)
+                fragment.setLocationData("${mLocation!!.district} ${mLocation!!.street}", mLocation!!.city)
                 fragment.scroller.scrollTo(0, 0)
                 fragment.refresh_layout.autoRefresh()
             }
@@ -109,7 +107,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         override fun getItem(position: Int): Fragment {
             val fragment = CityFragment()
             val bundle = Bundle()
-            bundle.putString(LOCATION, "$longitude,$latitude")
             bundle.putString(ADDRESS, "${mLocation!!.district} ${mLocation!!.street}")
             bundle.putString(CITY, mLocation!!.city)
             fragment.arguments = bundle

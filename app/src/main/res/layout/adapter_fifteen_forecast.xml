@@ -28,11 +28,14 @@
     <TextView
         android:id="@+id/day_weather_tv"
         style="@style/BaseBlackTextStyle"
+        android:layout_height="70dp"
         android:layout_marginTop="@dimen/base_margin"
         android:drawablePadding="@dimen/too_small_margin"
         android:drawableTop="@drawable/c100"
         android:gravity="center_horizontal"
-        android:text="多云" />
+        android:maxLines="2"
+        android:text="多云"
+        android:textSize="@dimen/small_text_size" />
 
     <com.monkey.monkeyweather.widget.FifteenForecastTemperatureChartView
         android:id="@+id/temp_chart_view"
@@ -44,10 +47,13 @@
     <TextView
         android:id="@+id/night_weather_tv"
         style="@style/BaseBlackTextStyle"
+        android:layout_height="70dp"
         android:drawablePadding="@dimen/too_small_margin"
         android:drawableTop="@drawable/c100"
         android:gravity="center_horizontal"
-        android:text="多云" />
+        android:maxLines="2"
+        android:text="多云"
+        android:textSize="@dimen/small_text_size" />
 
     <TextView
         android:id="@+id/wind_dir_tv"

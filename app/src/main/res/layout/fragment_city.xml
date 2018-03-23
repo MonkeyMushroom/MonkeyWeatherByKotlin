@@ -29,37 +29,35 @@
                     android:paddingTop="@dimen/base_margin">
 
                     <TextView
-                        android:id="@+id/address_tv"
-                        style="@style/BaseWhiteTextStyle"
-                        android:layout_marginLeft="@dimen/base_margin"
-                        android:layout_marginTop="@dimen/base_margin" />
-
-                    <TextView
                         android:id="@+id/temp_tv"
                         style="@style/BaseWhiteTextStyle"
-                        android:layout_below="@+id/address_tv"
                         android:layout_marginLeft="@dimen/base_margin"
-                        android:textSize="52sp" />
+                        android:textSize="65sp" />
 
                     <TextView
                         style="@style/BaseWhiteTextStyle"
-                        android:layout_below="@+id/address_tv"
                         android:layout_marginTop="@dimen/base_margin"
                         android:layout_toRightOf="@+id/temp_tv"
                         android:text="℃"
                         android:textSize="@dimen/large_text_size" />
 
                     <TextView
+                        android:id="@+id/address_tv"
+                        style="@style/BaseWhiteTextStyle"
+                        android:layout_below="@id/temp_tv"
+                        android:layout_marginLeft="@dimen/base_margin" />
+
+                    <TextView
                         android:id="@+id/weather_tv"
                         style="@style/BaseWhiteTextStyle"
-                        android:layout_below="@+id/temp_tv"
+                        android:layout_below="@+id/address_tv"
                         android:layout_marginLeft="@dimen/base_margin" />
 
                     <LinearLayout
                         android:id="@+id/air_qlty_ll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/temp_tv"
+                        android:layout_below="@+id/address_tv"
                         android:layout_toRightOf="@+id/weather_tv"
                         android:orientation="horizontal">
 
@@ -78,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/weather_tv"
-                        android:layout_marginTop="134dp"
+                        android:layout_marginTop="140dp"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/base_margin"
                         android:paddingTop="@dimen/base_margin">
@@ -89,14 +87,13 @@
                                 android:id="@+id/wind_dir_tv"
                                 style="@style/BaseWhiteTextStyle"
                                 android:layout_centerHorizontal="true"
-                                android:text="东南风" />
+                                android:text="风向" />
 
                             <TextView
                                 android:id="@+id/wind_sc_tv"
                                 style="@style/BaseWhiteTextStyle"
                                 android:layout_below="@+id/wind_dir_tv"
-                                android:layout_centerHorizontal="true"
-                                android:textSize="@dimen/too_large_text_size" />
+                                android:layout_centerHorizontal="true" />
 
                             <View
                                 style="@style/VerticalLineStyle"
@@ -116,8 +113,7 @@
                                 android:id="@+id/hum_data_tv"
                                 style="@style/BaseWhiteTextStyle"
                                 android:layout_below="@+id/hum_tv"
-                                android:layout_centerHorizontal="true"
-                                android:textSize="@dimen/too_large_text_size" />
+                                android:layout_centerHorizontal="true" />
 
                             <View
                                 style="@style/VerticalLineStyle"
@@ -137,8 +133,28 @@
                                 android:id="@+id/fl_data_tv"
                                 style="@style/BaseWhiteTextStyle"
                                 android:layout_below="@+id/fl_tv"
+                                android:layout_centerHorizontal="true" />
+
+                            <View
+                                style="@style/VerticalLineStyle"
+                                android:layout_alignBottom="@+id/fl_data_tv"
+                                android:layout_alignTop="@+id/fl_tv" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/RelativeStyle">
+
+                            <TextView
+                                android:id="@+id/pres_tv"
+                                style="@style/BaseWhiteTextStyle"
                                 android:layout_centerHorizontal="true"
-                                android:textSize="@dimen/too_large_text_size" />
+                                android:text="气压" />
+
+                            <TextView
+                                android:id="@+id/pres_data_tv"
+                                style="@style/BaseWhiteTextStyle"
+                                android:layout_below="@+id/pres_tv"
+                                android:layout_centerHorizontal="true" />
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -165,7 +181,20 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/base_margin"
+                    android:layout_height="@dimen/small_margin"
+                    android:layout_marginTop="100dp"
+                    android:background="@color/base_gray" />
+
+                <com.monkey.monkeyweather.widget.SunriseSunsetView
+                    android:id="@+id/sunrise_sunset_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/base_margin"
+                    android:layout_marginTop="@dimen/base_margin" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/small_margin"
                     android:background="@color/base_gray" />
 
                 <android.support.v7.widget.RecyclerView

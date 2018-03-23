@@ -13,6 +13,7 @@ object Constant {
     const val WEATHER = "s6/weather"
     const val WEATHER_FORECAST = "s6/weather/forecast"
     const val AIR_NOW = "s6/air/now"
+    const val SUNRISE_SUNSET = "s6/solar/sunrise-sunset"
 
     /**
      * 天气代码和资源的映射关系

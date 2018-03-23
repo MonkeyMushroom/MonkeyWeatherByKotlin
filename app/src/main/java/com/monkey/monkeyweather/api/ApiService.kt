@@ -1,9 +1,6 @@
 package com.monkey.monkeyweather.api
 
-import com.monkey.monkeyweather.bean.BaseBean
-import com.monkey.monkeyweather.bean.ForecastBean
-import com.monkey.monkeyweather.bean.NowAirBean
-import com.monkey.monkeyweather.bean.WeatherBean
+import com.monkey.monkeyweather.bean.*
 import com.monkey.monkeyweather.util.Constant
 import io.reactivex.Observable
 import retrofit2.http.POST
@@ -27,5 +24,9 @@ interface ApiService {
     @POST(Constant.WEATHER)
     fun getWeather(@Query("location") location: String, @QueryMap params: HashMap<String, String>)
             : Observable<BaseBean<List<WeatherBean>>>
+
+    @POST(Constant.SUNRISE_SUNSET)
+    fun getSunriseSunset(@Query("location") location: String, @QueryMap params: HashMap<String, String>)
+            : Observable<BaseBean<List<SunriseSunsetBean>>>
 
 }

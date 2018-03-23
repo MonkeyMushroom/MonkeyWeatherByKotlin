@@ -184,16 +184,19 @@ public class FifteenForecastTemperatureChartView extends View {
     }
 
     private void drawTempText(Canvas canvas) {
-        String maxTempStr = mTodayMaxTemp + "℃";
-        float maxTempTextWidth = mTempTextPaint.measureText(maxTempStr);
-        canvas.drawText(maxTempStr, 0, maxTempStr.length(),
-                getWidth() / 2 - maxTempTextWidth / 2, getTempY(mTodayMaxTemp) -
-                        getResources().getDimensionPixelSize(R.dimen.small_margin), mTempTextPaint);
-
-        String minTempStr = mTodayMinTemp + "℃";
-        float minTempTextWidth = mTempTextPaint.measureText(minTempStr);
-        canvas.drawText(minTempStr, 0, minTempStr.length(),
-                getWidth() / 2 - minTempTextWidth / 2, getTempY(mTodayMinTemp) +
-                        getResources().getDimensionPixelSize(R.dimen.base_margin), mTempTextPaint);
+        if (mTodayMaxTemp != null) {
+            String maxTempStr = mTodayMaxTemp + "℃";
+            float maxTempTextWidth = mTempTextPaint.measureText(maxTempStr);
+            canvas.drawText(maxTempStr, 0, maxTempStr.length(),
+                    getWidth() / 2 - maxTempTextWidth / 2, getTempY(mTodayMaxTemp) -
+                            getResources().getDimensionPixelSize(R.dimen.small_margin), mTempTextPaint);
+        }
+        if (mTodayMinTemp != null) {
+            String minTempStr = mTodayMinTemp + "℃";
+            float minTempTextWidth = mTempTextPaint.measureText(minTempStr);
+            canvas.drawText(minTempStr, 0, minTempStr.length(),
+                    getWidth() / 2 - minTempTextWidth / 2, getTempY(mTodayMinTemp) +
+                            getResources().getDimensionPixelSize(R.dimen.base_margin), mTempTextPaint);
+        }
     }
 }
