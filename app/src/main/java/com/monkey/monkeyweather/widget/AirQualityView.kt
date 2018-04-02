@@ -177,7 +177,7 @@ class AirQualityView @JvmOverloads constructor(context: Context, attrs: Attribut
                     colorArr[3] = mColorArr[3]
                     colorArr[4] = mColorArr[4]
                     colorArr[5] = mColorArr[5]
-                    colorArr[5] = mColorArr[6]
+                    colorArr[6] = mColorArr[6]
                 }
             }
             return colorArr
